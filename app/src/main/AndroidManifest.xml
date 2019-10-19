@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".AR_core"></activity>
         <activity android:name=".Recommendations" />
+=======
+        <activity android:name=".Recommendations"></activity>
+        <activity android:name=".AR_Core" />
+>>>>>>> d36ac911c38659ae4ad9235d6b3851f54af99b67
         <activity android:name=".Chatroom" />
         <activity android:name=".MainActivity">
             <intent-filter>
