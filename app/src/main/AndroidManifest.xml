@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".ManageMessages"
+            android:exported="false"></service>
 
-        <activity android:name=".AR_Core"></activity>
+        <activity android:name=".AR_Core" />
         <activity android:name=".Recommendations" />
         <activity android:name=".Chatroom" />
         <activity android:name=".MainActivity">

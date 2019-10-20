@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Chatroom extends AppCompatActivity {
-    String roomName = "Batman";
+    public String getName() {
+        String roomName = getIntent().getStringExtra("PosterName");
+        return roomName;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
