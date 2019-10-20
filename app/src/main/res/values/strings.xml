@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PosterGo</string>
+    <string name="AR_button">AR view</string>
+    <string name="chat_button">Chatroom</string>
+    <string name="recomm_button">Recommendations</string>
+    <string name="back">back</string>
 </resources>
