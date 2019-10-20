@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startChatroom(View view){
         Intent c = new Intent(getApplicationContext(),Chatroom.class);
-        c.putExtra("PosterName","Batman");
+        c.putExtra("PosterName","POSTER NAME GOES HERE");
         c.putExtra("PosterID",123456789);
         startActivity(c);
     }

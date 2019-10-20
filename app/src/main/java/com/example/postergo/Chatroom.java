@@ -13,6 +13,9 @@ public class Chatroom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
+        TextView textView = findViewById(R.id.textView);
+        textView.setText(getIntent().getStringExtra("PosterName"));
+
 
     }
 
@@ -24,12 +27,8 @@ public class Chatroom extends AppCompatActivity {
     public void saveMessage(View view){
         EditText editText = (EditText) findViewById(R.id.editText3);
         String message = editText.getText().toString();
-        showMessage(message);
-    }
-
-    public void showMessage(String m){
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(m);
+        TextView textView = findViewById(R.id.textView4);
+        textView.setText((message));
     }
 
 
