@@ -4,4 +4,6 @@
     <string name="chat_button">Chatroom</string>
     <string name="recomm_button">Recommendations</string>
     <string name="back">back</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send.</string>
 </resources>
