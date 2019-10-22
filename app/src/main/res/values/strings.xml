@@ -4,4 +4,7 @@
     <string name="chat_button">Chatroom</string>
     <string name="recomm_button">Recommendations</string>
     <string name="back">back</string>
+
+    <string name="poster_description"
+        >Here is the description of the poster</string>>
 </resources>
