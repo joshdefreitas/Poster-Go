@@ -39,7 +39,6 @@ public class ARCoreNode extends AnchorNode {
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     public void setImage(AugmentedImage image) {
         this.image = image;
-        Log.d(TAG, String.valueOf(image.getIndex()));
 
         if (!rightPanel.isDone()) {
             CompletableFuture.allOf(rightPanel)

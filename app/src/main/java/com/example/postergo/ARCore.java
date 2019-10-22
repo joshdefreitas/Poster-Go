@@ -2,14 +2,18 @@ package com.example.postergo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.Frame;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.ux.ArFragment;
 
+import java.time.temporal.TemporalAccessor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +32,9 @@ public class ARCore extends AppCompatActivity {
 
         posterContentLoader = new PosterContentLoader(getApplicationContext());
         posterContentLoader.getImgdb();
+
+        posterContentLoader.getContentList("1");
+
 
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
@@ -58,6 +65,8 @@ public class ARCore extends AppCompatActivity {
                     // Create a new anchor for newly found images.
                     Log.d("UpdateFrame", "tracking");
                     if (!posterMap.containsKey(augmentedImage)) {
+                        updateView(String.valueOf(augmentedImage.getIndex()));
+
                         ARCoreNode node = new ARCoreNode(this);
                         node.setImage(augmentedImage);
                         posterMap.put(augmentedImage, node);
@@ -70,5 +79,16 @@ public class ARCore extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    private void updateView(String id){
+
+        TextView rPanelTextView = findViewById(R.id.poster_text);
+        ImageView rPanelImageView = findViewById(R.id.right_image);
+
+        posterContentLoader.getContentList(id);
+
+        rPanelTextView.setText(posterContentLoader.getDescription(id));
+        rPanelImageView.setImageBitmap(posterContentLoader.getImg(id));
     }
 }

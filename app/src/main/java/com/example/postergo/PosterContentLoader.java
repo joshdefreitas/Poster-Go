@@ -26,12 +26,13 @@ public class PosterContentLoader {
     public static final String imgdbFileName = "posters_db.imgdb";
     private static final String
             imgdbUrl = "http://13.90.58.142:8081/get/downloadPoster/posters_db.imgdb";
-    private static final String listUrl = "http://13.90.58.142:8081/get/downloadPoster/";
+    private static final String apiUrl = "http://13.90.58.142:8081/get/downloadPoster/";
     private static final int TIME_OUT = 50000;
     private static final int RETRY_COUNT = 500;
 
     private Context context;
     private RequestQueue queue;
+    private HashMap<String, String> description;
     private HashMap<String, Bitmap> imgMap;
 
     public PosterContentLoader(Context context) {
@@ -40,40 +41,43 @@ public class PosterContentLoader {
         this.imgMap = new HashMap<>();
     }
 
-    public void getContentList() {
+    public void getContentList(String id) {
         try {
             JsonObjectRequest listRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    listUrl,
-                    new JSONObject("{poster_id:1}"),
+                    apiUrl,
+                    new JSONObject("{poster_id:" + id + "}"),
                     new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
+                            Log.d(TAG, "onResponse: content list: " + response.toString());
                         }
                     },
                     new Response.ErrorListener() {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "onErrorResponse: " + error.toString());
+                            Log.d(TAG, "onErrorResponse: content list: " + error.toString());
                         }
                     }
             );
 
+            queue.add(listRequest);
+
         } catch (JSONException e) {
             Log.d(TAG, "getContentList: JSON Exception");
-        };
+        }
     }
 
-    public void getImgContent(String urlString, String imgName) {
+    public void getImgContent(String urlString, String id) {
         ImageRequest imageRequest = new ImageRequest(
                 urlString,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
 
-                        imgMap.putIfAbsent(imgName, response);
+                        imgMap.put(id, response);
                     }
                 },
                 0,
@@ -83,7 +87,7 @@ public class PosterContentLoader {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, error.toString());
+                        Log.d(TAG, "onErrorResponse: load img: " + error.getMessage());
                     }
                 }
         );
@@ -132,7 +136,7 @@ public class PosterContentLoader {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse: cannnot dl imgdb");
+                        Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
                     }
                 },
                 null
@@ -141,9 +145,11 @@ public class PosterContentLoader {
         queue.add(request);
     }
 
-    public Bitmap getUri(String filename) {
-        return imgMap.get(filename);
+    public Bitmap getImg(String id) {
+        return imgMap.get(id);
     }
+
+    public String getDescription(String id) {return description.get(id);}
 
     /*
     private Uri saveImageToInternalStorage(Bitmap bitmap, String filename) {

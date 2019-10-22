@@ -16,7 +16,6 @@
             android:id="@+id/poster_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/poster_description"
             android:background="@color/cardview_light_background">
         </TextView>
 
@@ -25,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitStart"
-            android:src="@drawable/right_img"
             android:contentDescription="@string/poster_description">
 
         </ImageView>
