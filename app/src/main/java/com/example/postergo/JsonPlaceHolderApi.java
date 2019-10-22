@@ -15,4 +15,7 @@ public interface JsonPlaceHolderApi {
 
         @POST("post/updateChat")
         Call<Message> createMessage(@Body Message message);
+
+        @GET("get/rec/field=kind&value=action")
+        Call <List<Poster>> getRecommendations();
 }

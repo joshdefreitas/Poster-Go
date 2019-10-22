@@ -35,7 +35,7 @@
         android:id="@+id/button8"
         android:layout_width="137dp"
         android:layout_height="56dp"
-        android:onClick="showRecommendations"
+        android:onClick="getRecomm"
         android:text="@string/show_recomm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
