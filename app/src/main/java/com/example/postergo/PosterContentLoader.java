@@ -3,7 +3,10 @@ package com.example.postergo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,39 +22,63 @@ import org.json.JSONObject;
 
 import java.io.FileOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PosterContentLoader {
 
     private static final String TAG = "loadPosterContent";
     public static final String imgdbFileName = "posters_db.imgdb";
+
     private static final String
             imgdbUrl = "http://13.90.58.142:8081/get/downloadPoster/posters_db.imgdb";
-    private static final String apiUrl = "http://13.90.58.142:8081/get/downloadPoster/";
+    private static final String
+            listUrl = "http://13.90.58.142:8081/post/download/";
+    private static final String
+            imgUrlHead = "http://13.90.58.142:8081/get/downloadPoster/";
+
     private static final int TIME_OUT = 50000;
     private static final int RETRY_COUNT = 500;
 
     private Context context;
     private RequestQueue queue;
-    private HashMap<String, String> description;
-    private HashMap<String, Bitmap> imgMap;
+    private JSONObject listResponse;
+    private HashMap<Integer, String> description;
+    private HashMap<Integer, Bitmap> imgMap;
+    public View rightPanel;
+    private TextView rPanelTextView;
+    private ImageView rPanelImageView;
 
     public PosterContentLoader(Context context) {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
+        this.description = new HashMap<>();
         this.imgMap = new HashMap<>();
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+        this.rightPanel = inflater.inflate(R.layout.right_panel, null);
+
+        rPanelTextView = rightPanel.findViewById(R.id.right_text);
+        rPanelImageView = rightPanel.findViewById(R.id.right_image);
     }
 
-    public void getContentList(String id) {
-        try {
+    public void getContentList(Integer id) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("poster_id", id);
+
             JsonObjectRequest listRequest = new JsonObjectRequest(
-                    Request.Method.GET,
-                    apiUrl,
-                    new JSONObject("{poster_id:" + id + "}"),
+                    listUrl,
+                    new JSONObject(params),
                     new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d(TAG, "onResponse: content list: " + response.toString());
+                            try {
+                                listResponse = response;
+                                rPanelTextView.setText(response.getString("description"));
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            loadContent(id);
                         }
                     },
                     new Response.ErrorListener() {
@@ -65,12 +92,20 @@ public class PosterContentLoader {
 
             queue.add(listRequest);
 
+
+    }
+
+    private void loadContent(Integer id) {
+        try{
+            this.description.put(id, this.listResponse.getString("description"));
+            this.getImgContent(imgUrlHead + this.listResponse.getString("filename"), id);
         } catch (JSONException e) {
-            Log.d(TAG, "getContentList: JSON Exception");
+            Log.d(TAG, "loadContent: JSONException");
+            e.printStackTrace();
         }
     }
 
-    public void getImgContent(String urlString, String id) {
+    public void getImgContent(String urlString, Integer id) {
         ImageRequest imageRequest = new ImageRequest(
                 urlString,
                 new Response.Listener<Bitmap>() {
@@ -78,6 +113,7 @@ public class PosterContentLoader {
                     public void onResponse(Bitmap response) {
 
                         imgMap.put(id, response);
+                        rPanelImageView.setImageBitmap(response);
                     }
                 },
                 0,
@@ -145,11 +181,14 @@ public class PosterContentLoader {
         queue.add(request);
     }
 
-    public Bitmap getImg(String id) {
+    public Bitmap getImg(Integer id) {
         return imgMap.get(id);
     }
 
-    public String getDescription(String id) {return description.get(id);}
+    public String getDescription(Integer id) {
+        return description.get(id);
+    }
+
 
     /*
     private Uri saveImageToInternalStorage(Bitmap bitmap, String filename) {
