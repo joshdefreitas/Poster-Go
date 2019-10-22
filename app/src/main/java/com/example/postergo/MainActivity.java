@@ -29,7 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(r);
     }
 
+    public void startARCore(View view){
+        Intent r = new Intent(getApplicationContext(),ARCore.class);
+        startActivity(r);
+    }
 
 
 }
