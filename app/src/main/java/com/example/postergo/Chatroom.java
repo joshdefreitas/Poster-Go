@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class Chatroom extends AppCompatActivity {
     private EditText editText;
     private String baseURL = "http://13.90.58.142:8081/";
     private JsonPlaceHolderApi jsonPlaceHolderApi;
+    private List<Message> Updates;
+    private int currentTime=0;
 
 
     @Override
@@ -37,6 +40,8 @@ public class Chatroom extends AppCompatActivity {
         textViewResult.setMovementMethod(new ScrollingMovementMethod());
         editText = findViewById(R.id.editText3);
 
+        getUpdates();
+
     }
 
     public void returnMain(View view){
@@ -44,7 +49,7 @@ public class Chatroom extends AppCompatActivity {
         startActivity(r);
     }
 
-    public void displayMessage(View view) {
+    public void getUpdates() {
 
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://13.90.58.142:8081/")
@@ -65,17 +70,10 @@ public class Chatroom extends AppCompatActivity {
                             }
                             //errorMessage.setText("passed");
 
-                            List<Message> messageList = response.body();
+                            Updates = response.body();
 
-                            for(int i = 0; i < messageList.size()-1;i++){
-                                String content = "";
-                                content += messageList.get(i).getUser_name() + ": " + messageList.get(i).getString();
-                                content += "\n\n";
-                                textViewResult.append(content);
 
-                            }
-
-//                        for (Message message : messageList) {
+//                        for (Message message : Updates) {
 //                            String content = "";
 //                            content += message.getUser_name() + ": " + message.getString();
 //                            content += "\n\n";
@@ -99,7 +97,8 @@ public class Chatroom extends AppCompatActivity {
     }
 
     public void createMessage(View view){
-        Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
+        getUpdates();
+        final Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://13.90.58.142:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -120,11 +119,19 @@ public class Chatroom extends AppCompatActivity {
                 Message responseMessage = new Message(response.body().get_id(),response.body().getUser_id(),response.body().getString(),
                         response.body().getTime(),response.body().getRoom_number(),response.body().getUser_name());
 
-                    String content = "";
-                    content += responseMessage.getUser_name() + ": " + responseMessage.getString();
-                    content += "\n\n";
-                    textViewResult.append(content);
+//                    String content = "";
+//                    content += responseMessage.getUser_name() + ": " + responseMessage.getString();
+//                    content += "\n\n";
+//                    textViewResult.append(content);
 //                    ErrorMessage.setText(response.code());
+                Updates.add(responseMessage);
+
+
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Message was sent",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
 
             }
 
@@ -137,6 +144,20 @@ public class Chatroom extends AppCompatActivity {
 
 
     }
+
+
+    public void showUpdates(View view){
+        textViewResult.setText("");
+        for(Message message : Updates){
+            String content = "";
+            content += message.getUser_name() + ": " + message.getString();
+            content += "\n\n";
+            textViewResult.append(content);
+
+        }
+    }
+
+
 
 
 
