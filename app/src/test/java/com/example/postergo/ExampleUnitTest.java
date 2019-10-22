@@ -12,6 +12,5 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertTrue(SaveImageFromUrl.saveImage("http://13.90.58.142:/home/CPEN321/poster/1.jpg", "D://gpp.jpg"));
     }
 }
