@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface JsonPlaceHolderApi {
 
-        @GET("post/test")
+        @GET("/get/findAllChatByRoomNumber/1&0")
         Call<List<Message>> getMessage();
 
         @POST("post/updateChat")

@@ -20,6 +20,7 @@ public class Chatroom extends AppCompatActivity {
     public static final String RECENT_MESSAGE = "com.example.Poster-Go.MESSAGE";
     private TextView ErrorMessage;
     private TextView textViewResult;
+    private EditText editText;
     private String baseURL = "http://13.90.58.142:8081/";
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
@@ -34,6 +35,7 @@ public class Chatroom extends AppCompatActivity {
         ErrorMessage = findViewById(R.id.errorBox);
         textViewResult = findViewById(R.id.mainMessageView);
         textViewResult.setMovementMethod(new ScrollingMovementMethod());
+        editText = findViewById(R.id.editText3);
 
     }
 
@@ -64,15 +66,23 @@ public class Chatroom extends AppCompatActivity {
                             //errorMessage.setText("passed");
 
                             List<Message> messageList = response.body();
-                            for(int i= 0;i<5;i++) {
-                        for (Message message : messageList) {
-                            String content = "";
-                            content += message.getUser_name() + ": " + message.getString();
-                            content += "\n\n";
-                            textViewResult.append(content);
 
-                        }
-                    }
+                            for(int i = 0; i < messageList.size()-1;i++){
+                                String content = "";
+                                content += messageList.get(i).getUser_name() + ": " + messageList.get(i).getString();
+                                content += "\n\n";
+                                textViewResult.append(content);
+
+                            }
+
+//                        for (Message message : messageList) {
+//                            String content = "";
+//                            content += message.getUser_name() + ": " + message.getString();
+//                            content += "\n\n";
+//                            textViewResult.append(content);
+//
+//                        }
+
 //                Message.setText(messageList.get(0).getString());
 //                User.setText(messageList.get(0).getUser_name());
 
@@ -89,7 +99,7 @@ public class Chatroom extends AppCompatActivity {
     }
 
     public void createMessage(View view){
-        Message message = new Message(3,"Sent Message",6,1,"Josh");
+        Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://13.90.58.142:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -113,7 +123,7 @@ public class Chatroom extends AppCompatActivity {
                     String content = "";
                     content += responseMessage.getUser_name() + ": " + responseMessage.getString();
                     content += "\n\n";
-                    textViewResult.setText(content);
+                    textViewResult.append(content);
 //                    ErrorMessage.setText(response.code());
 
             }
