@@ -17,7 +17,7 @@ import java.util.Map;
 public class ARCore extends AppCompatActivity {
 
     private ArFragment arFragment;
-    //private ImageView scanningView;
+    private PosterContentLoader posterContentLoader;
     private final Map<AugmentedImage, ARCoreNode> posterMap = new HashMap<>();
 
 
@@ -25,6 +25,9 @@ public class ARCore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar_core);
+
+        posterContentLoader = new PosterContentLoader(getApplicationContext());
+        posterContentLoader.getImgdb();
 
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 

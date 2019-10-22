@@ -1,2 +1,0 @@
-joker.jpg|.\images\/joker.jpg
-poster.png|.\images\/poster.png

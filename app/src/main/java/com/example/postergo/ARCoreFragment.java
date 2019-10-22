@@ -12,6 +12,7 @@ import com.google.ar.core.Config;
 import com.google.ar.core.Session;
 import com.google.ar.sceneform.ux.ArFragment;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -55,7 +56,8 @@ public class ARCoreFragment extends ArFragment {
 
 
         // load a pre-existing augmented image database.
-        try (InputStream is = getContext().getAssets().open(IMAGE_DATA_BASE)) {
+        try (InputStream is = new FileInputStream(
+                getContext().getFileStreamPath(PosterContentLoader.imgdbFileName))) {
             augmentedImageDatabase = AugmentedImageDatabase.deserialize(session, is);
         } catch (IOException e) {
             Log.e(TAG, "IO exception loading augmented image database.", e);
