@@ -10,4 +10,8 @@
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send.</string>
     <string name="your_UI">Your UI appears here</string>
+
+    <string name="your_message">Your Message:</string>
+    <string name="Error">error will be displayed here</string>
+    <string name="get_message">Get Message</string>
 </resources>
