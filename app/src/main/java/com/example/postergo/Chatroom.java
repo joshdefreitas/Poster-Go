@@ -3,7 +3,9 @@ package com.example.postergo;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ public class Chatroom extends AppCompatActivity {
         editText = findViewById(R.id.editText3);
 
         getUpdates();
+
 
     }
 
@@ -145,8 +148,8 @@ public class Chatroom extends AppCompatActivity {
 
     }
 
-
     public void showUpdates(View view){
+        getUpdates();
         textViewResult.setText("");
         for(Message message : Updates){
             String content = "";

@@ -18,4 +18,8 @@ public class Recommendations extends AppCompatActivity {
         Intent r = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(r);
     }
+
+    public void showRecommendations(View view){
+
+    }
 }
