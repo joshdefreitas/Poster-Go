@@ -14,4 +14,8 @@
     <string name="your_message">Your Message:</string>
     <string name="Error">error will be displayed here</string>
     <string name="get_message">Get Message</string>
+
+
+    <string name="user_name">User</string>
+    <string name="get_updates">Update</string>
 </resources>
