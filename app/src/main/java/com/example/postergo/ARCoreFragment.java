@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 public class ARCoreFragment extends ArFragment {
 
     private static final String TAG = "ARCoreFragment";
-    private static final String IMAGE_DATA_BASE = "posters_db.imgdb";
 
 
     @Override
@@ -29,7 +28,6 @@ public class ARCoreFragment extends ArFragment {
             LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        // Turn off the plane discovery since we're only looking for images
         getPlaneDiscoveryController().hide();
         getPlaneDiscoveryController().setInstructionView(null);
         getArSceneView().getPlaneRenderer().setEnabled(false);

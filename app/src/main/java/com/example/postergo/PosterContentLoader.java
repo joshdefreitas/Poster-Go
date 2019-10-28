@@ -42,17 +42,14 @@ public class PosterContentLoader {
     private Context context;
     private RequestQueue queue;
     private JSONObject listResponse;
-    private HashMap<Integer, String> description;
-    private HashMap<Integer, Bitmap> imgMap;
-    public View rightPanel;
     private TextView rPanelTextView;
     private ImageView rPanelImageView;
+
+    public View rightPanel;
 
     public PosterContentLoader(Context context) {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
-        this.description = new HashMap<>();
-        this.imgMap = new HashMap<>();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
         this.rightPanel = inflater.inflate(R.layout.right_panel, null);
@@ -61,7 +58,7 @@ public class PosterContentLoader {
         rPanelImageView = rightPanel.findViewById(R.id.right_image);
     }
 
-    public void getContentList(Integer id) {
+    public void getContent(Integer id) {
         Map<String, Integer> params = new HashMap<>();
         params.put("poster_id", id);
 
@@ -72,13 +69,8 @@ public class PosterContentLoader {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
-                                listResponse = response;
-                                rPanelTextView.setText(response.getString("description"));
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            loadContent(id);
+                            listResponse = response;
+                            loadContentToView(id);
                         }
                     },
                     new Response.ErrorListener() {
@@ -91,28 +83,25 @@ public class PosterContentLoader {
             );
 
             queue.add(listRequest);
-
-
     }
 
-    private void loadContent(Integer id) {
+    private void loadContentToView(Integer id) {
         try{
-            this.description.put(id, this.listResponse.getString("description"));
+            rPanelTextView.setText(listResponse.getString("description"));
             this.getImgContent(imgUrlHead + this.listResponse.getString("filename"), id);
         } catch (JSONException e) {
-            Log.d(TAG, "loadContent: JSONException");
+            Log.d(TAG, "loadContentToView: JSONException");
             e.printStackTrace();
         }
     }
 
-    public void getImgContent(String urlString, Integer id) {
+    private void getImgContent(String urlString, Integer id) {
         ImageRequest imageRequest = new ImageRequest(
                 urlString,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
 
-                        imgMap.put(id, response);
                         rPanelImageView.setImageBitmap(response);
                     }
                 },
@@ -180,39 +169,4 @@ public class PosterContentLoader {
 
         queue.add(request);
     }
-
-    public Bitmap getImg(Integer id) {
-        return imgMap.get(id);
-    }
-
-    public String getDescription(Integer id) {
-        return description.get(id);
-    }
-
-
-    /*
-    private Uri saveImageToInternalStorage(Bitmap bitmap, String filename) {
-        // Initialize ContextWrapper
-        ContextWrapper wrapper = new ContextWrapper(context);
-
-        // Initializing a new file
-        // The bellow line return a directory in internal storage
-        File file = wrapper.getDir("Images",MODE_PRIVATE);
-
-        file = new File(file, filename + ".jpg");
-
-        try{
-            OutputStream stream = null;
-            stream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
-            stream.flush();
-            stream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return Uri.parse(file.getAbsolutePath());
-    }
-    */
 }

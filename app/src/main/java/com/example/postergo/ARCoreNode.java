@@ -2,9 +2,7 @@ package com.example.postergo;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.sceneform.AnchorNode;
@@ -28,11 +26,6 @@ public class ARCoreNode extends AnchorNode {
     @SuppressWarnings({"AndroidApiChecker"})
     public ARCoreNode(Context context, View view) {
         panelSizer = new FixedHeightViewSizer(0.3f);
-
-       // View rightPanelView;
-
-       // LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // rightPanelView = inflater.inflate(R.layout.right_panel, null);
 
         if (rightPanel == null) {
             rightPanel =
