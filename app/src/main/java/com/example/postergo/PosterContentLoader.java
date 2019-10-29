@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,8 @@ public class PosterContentLoader {
             listUrl = "http://13.90.58.142:8081/post/download/";
     private static final String
             imgUrlHead = "http://13.90.58.142:8081/get/downloadPoster/";
+    private static final String
+            historyUrl = "";
 
     private static final int TIME_OUT = 50000;
     private static final int RETRY_COUNT = 500;
@@ -44,6 +47,7 @@ public class PosterContentLoader {
     private JSONObject listResponse;
     private TextView rPanelTextView;
     private ImageView rPanelImageView;
+    private Button likeButton;
 
     public View rightPanel;
 
@@ -56,6 +60,15 @@ public class PosterContentLoader {
 
         rPanelTextView = rightPanel.findViewById(R.id.right_text);
         rPanelImageView = rightPanel.findViewById(R.id.right_image);
+        likeButton = rightPanel.findViewById(R.id.like_button);
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postHistoryAndLike(1);
+                Log.d(TAG, "onClick: liked");
+            }
+        });
     }
 
     public void getContent(Integer id) {
@@ -70,6 +83,7 @@ public class PosterContentLoader {
                         @Override
                         public void onResponse(JSONObject response) {
                             listResponse = response;
+                            postHistoryAndLike(0);
                             loadContentToView(id);
                         }
                     },
@@ -168,5 +182,35 @@ public class PosterContentLoader {
         );
 
         queue.add(request);
+    }
+
+    public void postHistoryAndLike(int like) {
+        try {
+            listResponse.put("like", like);
+        } catch (JSONException e) {
+            Log.d(TAG, "postHistoryAndLike: ");
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest historyRequest = new JsonObjectRequest(
+                historyUrl,
+                listResponse,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: " + error.toString());
+                    }
+                }
+        );
+
+        queue.add(historyRequest);
+
     }
 }
