@@ -41,7 +41,7 @@ public class Recommendations extends AppCompatActivity {
     }
 
     public void getRecomm(View view) {
-
+        textView.setText("");
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://13.90.58.142:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
