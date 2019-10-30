@@ -37,7 +37,9 @@ public class PosterContentLoader {
     private static final String
             imgUrlHead = "http://13.90.58.142:8081/get/downloadPoster/";
     private static final String
-            historyUrl = "";
+            historyUrl = "http://13.90.58.142:8081/post/userViewHistory";
+    private static final String
+            likeUrl = "http://13.90.58.142:8081/put/userLike";
 
     private static final int TIME_OUT = 50000;
     private static final int RETRY_COUNT = 500;
@@ -65,7 +67,7 @@ public class PosterContentLoader {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postHistoryAndLike(1);
+                postHistoryAndLike(1, GlobalVariables.user_name);
                 Log.d(TAG, "onClick: liked");
             }
         });
@@ -83,7 +85,7 @@ public class PosterContentLoader {
                         @Override
                         public void onResponse(JSONObject response) {
                             listResponse = response;
-                            postHistoryAndLike(0);
+                            postHistoryAndLike(0, GlobalVariables.user_name);
                             loadContentToView(id);
                         }
                     },
@@ -184,16 +186,31 @@ public class PosterContentLoader {
         queue.add(request);
     }
 
-    public void postHistoryAndLike(int like) {
+    public void postHistoryAndLike(int like, String username) {
         try {
             listResponse.put("like", like);
+            listResponse.put("user_name", username);
         } catch (JSONException e) {
             Log.d(TAG, "postHistoryAndLike: ");
             e.printStackTrace();
         }
 
+        Log.d(TAG, "postHistoryAndLike: " + listResponse.toString());
+
+        String url = "";
+        int requestMethod = 0;
+
+        if (like == 0) {
+            url = historyUrl;
+            requestMethod = Request.Method.POST;
+        } else {
+            url = likeUrl;
+            requestMethod = Request.Method.PUT;
+        }
+
         JsonObjectRequest historyRequest = new JsonObjectRequest(
-                historyUrl,
+                requestMethod,
+                url,
                 listResponse,
                 new Response.Listener<JSONObject>() {
 
