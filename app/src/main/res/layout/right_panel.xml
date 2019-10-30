@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id= "@+id/right_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
+
     <ScrollView
         android:id="@+id/right_scroll"
         android:layout_width="160dp"
-        android:layout_height="200dp"
-        >
+        android:layout_height="200dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,4 +34,11 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/like_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Like">
+    </Button>>
 </LinearLayout>

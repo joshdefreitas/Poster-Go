@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -27,6 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "mainActivity";
 
 
     @Override
@@ -53,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
     public void startARCore(View view){
         Intent r = new Intent(getApplicationContext(),ARCore.class);
         startActivity(r);
+    }
+
+    public void getUserName(View view) {
+        TextInputEditText usernameInput = findViewById(R.id.username_input);
+        TextView usernamePrompt = findViewById(R.id.username_prompt);
+
+        GlobalVariables.user_name = usernameInput.getText().toString();
+        usernamePrompt.setText("Username: " + GlobalVariables.user_name);
+
     }
 
 
