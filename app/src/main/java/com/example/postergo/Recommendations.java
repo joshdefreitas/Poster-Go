@@ -29,17 +29,28 @@ public class Recommendations extends AppCompatActivity {
         textView = findViewById(R.id.recommendations);
 
     }
+
+    /*
+     * Allows user to return to the main activity
+     */
     public void returnMain(View view){
         Intent r = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(r);
     }
 
-
+    /*
+     * Allows user to display recommendations from the server
+     * @param: View
+     */
 
     public void showRecommendations(View view){
-
+        //TODO: Implement method to show recommendations received from server
     }
 
+    /* Test Method
+     * Makes a recommendation request and displays results
+     * @param: View
+     */
     public void getRecomm(View view) {
         textView.setText("");
 

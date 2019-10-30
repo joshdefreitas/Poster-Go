@@ -61,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         successMsg =findViewById(R.id.textView2);
 
-
         saveFCMToken();
 
     }
 
+    /*
+    * Allows user to start the chatroom activity from the home screen UI
+    * @param: View
+    */
     public void startChatroom(View view){
         Intent c = new Intent(getApplicationContext(),Chatroom.class);
         c.putExtra("PosterName","POSTER NAME GOES HERE");
@@ -73,17 +76,27 @@ public class MainActivity extends AppCompatActivity {
         startActivity(c);
     }
 
-
+    /*
+     * Allows user to start the Recommendations activity from the home screen UI
+     * @param: View
+     */
     public void startRecommendations(View view){
         Intent r = new Intent(getApplicationContext(),Recommendations.class);
         startActivity(r);
     }
 
+    /*
+     * Allows user to start the ARCOre activity from the home screen UI
+     * @param: View
+     */
     public void startARCore(View view){
         Intent r = new Intent(getApplicationContext(),ARCore.class);
         startActivity(r);
     }
 
+    /*
+     * Generates token for current instance
+     */
     public void saveFCMToken(){
         // Get token
         // [START retrieve_current_token]
@@ -112,8 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * Sends generated token to be saved on the server
+     * @param: token to be saved
+     */
     public void sendToServer(String token){
-        successMsg.setText("Token: " +token);
+        //successMsg.setText("Token: " +token);
+        //TODO: Implement api call to server
 
 
     }
