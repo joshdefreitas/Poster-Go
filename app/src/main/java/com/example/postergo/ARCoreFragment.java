@@ -22,7 +22,10 @@ public class ARCoreFragment extends ArFragment {
 
     private static final String TAG = "ARCoreFragment";
 
-
+    /*
+    * Turn off plane discovery onCreateView,
+    * since we are using augmentedImage
+    */
     @Override
     public View onCreateView(
             LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +37,14 @@ public class ARCoreFragment extends ArFragment {
         return view;
     }
 
+    /*
+    * Get the session configuration, set auto focus mode for camera
+    *
+    * Param:
+    * session: current session
+    * Return:
+    * the config of current session
+    */
     @Override
     protected Config getSessionConfiguration(Session session) {
         Config config = super.getSessionConfiguration(session);
@@ -42,18 +53,25 @@ public class ARCoreFragment extends ArFragment {
         return config;
     }
 
+    /*
+    * Load the augmentedImageDatabase from local storage
+    *
+    * Param:
+    * config: session configuration
+    * session: current session
+    * Return:
+    * true for successfully loaded the augmentedImageDatabase,
+    * otherwise false
+    */
     private boolean setupAugmentedImageDatabase(Config config, Session session) {
         AugmentedImageDatabase augmentedImageDatabase;
 
         AssetManager assetManager = getContext() != null ? getContext().getAssets() : null;
         if (assetManager == null) {
-            Log.e(TAG, "Context is null, cannot intitialize image database.");
+            Log.e(TAG, "Context is null, cannot initialize image database.");
             return false;
         }
 
-
-
-        // load a pre-existing augmented image database.
         try (InputStream is = new FileInputStream(
                 getContext().getFileStreamPath(PosterContentLoader.imgdbFileName))) {
             augmentedImageDatabase = AugmentedImageDatabase.deserialize(session, is);

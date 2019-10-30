@@ -23,6 +23,9 @@ public class ARCoreNode extends AnchorNode {
     private static CompletableFuture<ViewRenderable> rightPanel;
     private static FixedHeightViewSizer panelSizer;
 
+    /*
+    * Create ARCoreNode, build viewRenderable for right panel
+    */
     @SuppressWarnings({"AndroidApiChecker"})
     public ARCoreNode(Context context, View view) {
         panelSizer = new FixedHeightViewSizer(0.3f);
@@ -37,6 +40,13 @@ public class ARCoreNode extends AnchorNode {
 
         }
     }
+
+    /*
+    * Accept right panel renderable and set it to the right side if the image
+    *
+    * Param:
+    * image: the image that is currently tracked
+    */
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     public void setImage(AugmentedImage image) {
         this.image = image;

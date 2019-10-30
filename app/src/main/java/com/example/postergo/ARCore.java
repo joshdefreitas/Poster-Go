@@ -20,7 +20,9 @@ public class ARCore extends AppCompatActivity {
     private PosterContentLoader posterContentLoader;
     private final Map<AugmentedImage, ARCoreNode> posterMap = new HashMap<>();
 
-
+    /*
+    * Setup posterContentLoader and arFragment onCreate
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +40,6 @@ public class ARCore extends AppCompatActivity {
     private void onUpdateFrame(FrameTime frameTime) {
         Frame frame = arFragment.getArSceneView().getArFrame();
 
-
-
         Collection<AugmentedImage> updatedAugmentedImages =
                 frame.getUpdatedTrackables(AugmentedImage.class);
         for (AugmentedImage augmentedImage : updatedAugmentedImages) {
@@ -48,7 +48,7 @@ public class ARCore extends AppCompatActivity {
                     break;
 
                 case TRACKING:
-
+                    // The Trackable is currently tracked and its pose is current.
                     Log.d("UpdateFrame", "tracking");
                     if (!posterMap.containsKey(augmentedImage)) {
 

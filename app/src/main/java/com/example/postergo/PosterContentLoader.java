@@ -53,6 +53,14 @@ public class PosterContentLoader {
 
     public View rightPanel;
 
+    /*
+    * Create new posterContentLoader,
+    * Get context, initialize volley queue, inflate the right panel view
+    * Setup the onClickListener for "like" button
+    *
+    * Param:
+    * context: the current context
+    */
     public PosterContentLoader(Context context) {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
@@ -73,6 +81,12 @@ public class PosterContentLoader {
         });
     }
 
+    /*
+    * Load poster description and supplementary image to right panel view
+    *
+    * Param:
+    * id: the poster id from augmentedImageDatabase
+    */
     public void getContent(Integer id) {
         Map<String, Integer> params = new HashMap<>();
         params.put("poster_id", id);
@@ -99,6 +113,99 @@ public class PosterContentLoader {
             );
 
             queue.add(listRequest);
+    }
+
+
+
+
+    /*
+    * Load augmentedImageDatabase from the backend,
+    * and save it on local storage
+    */
+    public void getImgdb() {
+        FileRequest request = new FileRequest(
+                Request.Method.GET,
+                imgdbUrl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        try {
+                            FileOutputStream outputStream =
+                                    context.openFileOutput(imgdbFileName, Context.MODE_PRIVATE);
+
+                            outputStream.write(response);
+                            outputStream.close();
+
+                        } catch (Exception e) {
+                            Log.d(TAG, "onResponse: cannot save imgdb");
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
+                    }
+                },
+                null
+        );
+
+        queue.add(request);
+    }
+
+    /*
+    * Post view history to the backend,
+    * put the "liked" information to the backend if user liked the poster
+    *
+    * Param:
+    * like: 0 for post history, 1 for put like
+    * username: current user who viewed and liked the poster
+    */
+    public void postHistoryAndLike(int like, String username) {
+        try {
+            listResponse.put("like", like);
+            listResponse.put("user_name", username);
+        } catch (JSONException e) {
+            Log.d(TAG, "postHistoryAndLike: ");
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "postHistoryAndLike: " + listResponse.toString());
+
+        String url = "";
+        int requestMethod = 0;
+
+        if (like == 0) {
+            url = historyUrl;
+            requestMethod = Request.Method.POST;
+        } else {
+            url = likeUrl;
+            requestMethod = Request.Method.PUT;
+        }
+
+        JsonObjectRequest historyRequest = new JsonObjectRequest(
+                requestMethod,
+                url,
+                listResponse,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: " + error.toString());
+                    }
+                }
+        );
+
+        queue.add(historyRequest);
+
     }
 
     private void loadContentToView(Integer id) {
@@ -151,83 +258,5 @@ public class PosterContentLoader {
         });
 
         queue.add(imageRequest);
-    }
-
-    public void getImgdb() {
-        FileRequest request = new FileRequest(
-                Request.Method.GET,
-                imgdbUrl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        try {
-                            FileOutputStream outputStream =
-                                    context.openFileOutput(imgdbFileName, Context.MODE_PRIVATE);
-
-                            outputStream.write(response);
-                            outputStream.close();
-
-                        } catch (Exception e) {
-                            Log.d(TAG, "onResponse: cannot save imgdb");
-                            e.printStackTrace();
-                        }
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
-                    }
-                },
-                null
-        );
-
-        queue.add(request);
-    }
-
-    public void postHistoryAndLike(int like, String username) {
-        try {
-            listResponse.put("like", like);
-            listResponse.put("user_name", username);
-        } catch (JSONException e) {
-            Log.d(TAG, "postHistoryAndLike: ");
-            e.printStackTrace();
-        }
-
-        Log.d(TAG, "postHistoryAndLike: " + listResponse.toString());
-
-        String url = "";
-        int requestMethod = 0;
-
-        if (like == 0) {
-            url = historyUrl;
-            requestMethod = Request.Method.POST;
-        } else {
-            url = likeUrl;
-            requestMethod = Request.Method.PUT;
-        }
-
-        JsonObjectRequest historyRequest = new JsonObjectRequest(
-                requestMethod,
-                url,
-                listResponse,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse: " + error.toString());
-                    }
-                }
-        );
-
-        queue.add(historyRequest);
-
     }
 }
