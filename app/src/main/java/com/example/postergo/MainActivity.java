@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.List;
 
 import retrofit2.Retrofit;
@@ -51,8 +53,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private static final String TAG = "MainActivity";
     private TextView successMsg;
+
 
 
     @Override
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(r);
     }
 
+
     /*
      * Generates token for current instance
      */
@@ -133,6 +138,17 @@ public class MainActivity extends AppCompatActivity {
         //successMsg.setText("Token: " +token);
         //TODO: Implement api call to server
 
+
+    }
+
+
+
+    public void getUserName(View view) {
+        TextInputEditText usernameInput = findViewById(R.id.username_input);
+        TextView usernamePrompt = findViewById(R.id.username_prompt);
+
+        GlobalVariables.user_name = usernameInput.getText().toString();
+        usernamePrompt.setText("Username: " + GlobalVariables.user_name);
 
     }
 

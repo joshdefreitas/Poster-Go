@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,10 @@ public class PosterContentLoader {
             listUrl = "http://13.90.58.142:8081/post/download/";
     private static final String
             imgUrlHead = "http://13.90.58.142:8081/get/downloadPoster/";
+    private static final String
+            historyUrl = "http://13.90.58.142:8081/post/userViewHistory";
+    private static final String
+            likeUrl = "http://13.90.58.142:8081/put/userLike";
 
     private static final int TIME_OUT = 50000;
     private static final int RETRY_COUNT = 500;
@@ -42,26 +47,47 @@ public class PosterContentLoader {
     private Context context;
     private RequestQueue queue;
     private JSONObject listResponse;
-    private HashMap<Integer, String> description;
-    private HashMap<Integer, Bitmap> imgMap;
-    public View rightPanel;
     private TextView rPanelTextView;
     private ImageView rPanelImageView;
+    private Button likeButton;
 
+    public View rightPanel;
+
+    /*
+    * Create new posterContentLoader,
+    * Get context, initialize volley queue, inflate the right panel view
+    * Setup the onClickListener for "like" button
+    *
+    * Param:
+    * context: the current context
+    */
     public PosterContentLoader(Context context) {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
-        this.description = new HashMap<>();
-        this.imgMap = new HashMap<>();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
         this.rightPanel = inflater.inflate(R.layout.right_panel, null);
 
         rPanelTextView = rightPanel.findViewById(R.id.right_text);
         rPanelImageView = rightPanel.findViewById(R.id.right_image);
+        likeButton = rightPanel.findViewById(R.id.like_button);
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postHistoryAndLike(1, GlobalVariables.user_name);
+                Log.d(TAG, "onClick: liked");
+            }
+        });
     }
 
-    public void getContentList(Integer id) {
+    /*
+    * Load poster description and supplementary image to right panel view
+    *
+    * Param:
+    * id: the poster id from augmentedImageDatabase
+    */
+    public void getContent(Integer id) {
         Map<String, Integer> params = new HashMap<>();
         params.put("poster_id", id);
 
@@ -72,13 +98,9 @@ public class PosterContentLoader {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
-                                listResponse = response;
-                                rPanelTextView.setText(response.getString("description"));
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            loadContent(id);
+                            listResponse = response;
+                            postHistoryAndLike(0, GlobalVariables.user_name);
+                            loadContentToView(id);
                         }
                     },
                     new Response.ErrorListener() {
@@ -91,28 +113,118 @@ public class PosterContentLoader {
             );
 
             queue.add(listRequest);
+    }
 
+
+
+
+    /*
+    * Load augmentedImageDatabase from the backend,
+    * and save it on local storage
+    */
+    public void getImgdb() {
+        FileRequest request = new FileRequest(
+                Request.Method.GET,
+                imgdbUrl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        try {
+                            FileOutputStream outputStream =
+                                    context.openFileOutput(imgdbFileName, Context.MODE_PRIVATE);
+
+                            outputStream.write(response);
+                            outputStream.close();
+
+                        } catch (Exception e) {
+                            Log.d(TAG, "onResponse: cannot save imgdb");
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
+                    }
+                },
+                null
+        );
+
+        queue.add(request);
+    }
+
+    /*
+    * Post view history to the backend,
+    * put the "liked" information to the backend if user liked the poster
+    *
+    * Param:
+    * like: 0 for post history, 1 for put like
+    * username: current user who viewed and liked the poster
+    */
+    public void postHistoryAndLike(int like, String username) {
+        try {
+            listResponse.put("like", like);
+            listResponse.put("user_name", username);
+        } catch (JSONException e) {
+            Log.d(TAG, "postHistoryAndLike: ");
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "postHistoryAndLike: " + listResponse.toString());
+
+        String url = "";
+        int requestMethod = 0;
+
+        if (like == 0) {
+            url = historyUrl;
+            requestMethod = Request.Method.POST;
+        } else {
+            url = likeUrl;
+            requestMethod = Request.Method.PUT;
+        }
+
+        JsonObjectRequest historyRequest = new JsonObjectRequest(
+                requestMethod,
+                url,
+                listResponse,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: " + error.toString());
+                    }
+                }
+        );
+
+        queue.add(historyRequest);
 
     }
 
-    private void loadContent(Integer id) {
+    private void loadContentToView(Integer id) {
         try{
-            this.description.put(id, this.listResponse.getString("description"));
+            rPanelTextView.setText(listResponse.getString("description"));
             this.getImgContent(imgUrlHead + this.listResponse.getString("filename"), id);
         } catch (JSONException e) {
-            Log.d(TAG, "loadContent: JSONException");
+            Log.d(TAG, "loadContentToView: JSONException");
             e.printStackTrace();
         }
     }
 
-    public void getImgContent(String urlString, Integer id) {
+    private void getImgContent(String urlString, Integer id) {
         ImageRequest imageRequest = new ImageRequest(
                 urlString,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
 
-                        imgMap.put(id, response);
                         rPanelImageView.setImageBitmap(response);
                     }
                 },
@@ -147,72 +259,4 @@ public class PosterContentLoader {
 
         queue.add(imageRequest);
     }
-
-    public void getImgdb() {
-        FileRequest request = new FileRequest(
-                Request.Method.GET,
-                imgdbUrl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        try {
-                            FileOutputStream outputStream =
-                                    context.openFileOutput(imgdbFileName, Context.MODE_PRIVATE);
-
-                            outputStream.write(response);
-                            outputStream.close();
-
-                        } catch (Exception e) {
-                            Log.d(TAG, "onResponse: cannot save imgdb");
-                            e.printStackTrace();
-                        }
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
-                    }
-                },
-                null
-        );
-
-        queue.add(request);
-    }
-
-    public Bitmap getImg(Integer id) {
-        return imgMap.get(id);
-    }
-
-    public String getDescription(Integer id) {
-        return description.get(id);
-    }
-
-
-    /*
-    private Uri saveImageToInternalStorage(Bitmap bitmap, String filename) {
-        // Initialize ContextWrapper
-        ContextWrapper wrapper = new ContextWrapper(context);
-
-        // Initializing a new file
-        // The bellow line return a directory in internal storage
-        File file = wrapper.getDir("Images",MODE_PRIVATE);
-
-        file = new File(file, filename + ".jpg");
-
-        try{
-            OutputStream stream = null;
-            stream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
-            stream.flush();
-            stream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return Uri.parse(file.getAbsolutePath());
-    }
-    */
 }
