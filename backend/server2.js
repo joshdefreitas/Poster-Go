@@ -4,55 +4,78 @@ const mongoclient = require('mongodb').MongoClient;
 var app = express();
 app.use(express.json());
 
+//using database named as "local"
 mongoclient.connect("mongodb://127.0.0.1:27017",
 	(err, client) => {db = client.db('local')})
 
-app.get('/get', function (req, res) {
-        res.send('Hello!');
-})
-
+//return poster JSON object found by poster_id
 app.post('/post/download', function (req, res) {
         db.collection("poster").find({poster_id: req.body.poster_id}).toArray(
 		(err,result) => {
-			//console.log(req.body);
 			res.send(result[0]);
 		})
 })
-/*
-app.get('/get/downloadPoster', function (req, res) {
-        res.download('/home/CPEN321/poster/1.jpg');
-})
-*/
+
+//return poster image file
 app.get('/get/downloadPoster/:file', function (req, res, next) {
 	var file = req.params.file
-
 	res.sendFile('/home/CPEN321/poster/'+file);
 })
-/*
-app.get('/get/findAll', function (req, res) {
-        db.collection("chatroom").find().toArray((err,result) => {res.send(result);})
-})
-*/
+
+//return messages in same chatroom, but sent after "time"
 app.get('/get/findAllChatByRoomNumber/:num&:time', function (req, res) {
         const num = Number(req.params.num)
 	const time = Number(req.params.time)
 	db.collection("chatroom").find({room_number: num, time: {$gt: time}}).toArray((err,result) => {res.send(result);})
 })
 
+//store new messages in database
 app.post('/post/updateChat', function (req, res) {
-	//console.log("POST received");
 	db.collection("chatroom").insertOne(req.body, (err, result) => {res.send(req.body);})
 })
 
-app.get('/post/test', function (req, res) {
-	//console.log("GET sent back");
-	db.collection("chatroom").find({room_number: 1}).toArray((err,result) => {res.send(result);})
+//store new user view history in database
+app.post('/post/userViewHistory', function (req, res) {
+        db.collection("history").insertOne(req.body, (err, result) => {res.send(req.body);})
 })
 
+//update "like" tag in history
+app.put('/put/userLike', function (req, res) {
+        db.collection("history").updateOne({poster_id:req.body.poster_id},{$set:{like:req.body.like}}, (err, result) => {res.send(req.body);})
+})
+
+/* get recommandations
+*  input: JSON tag "user_name"
+*  return: JSON object array
+*  This method will find all view history JSON object based on input "user_name". 
+*  Then computes the number of history for each movie type. If "like" tag is 1, 
+*  that history will be count twice to add weight of its type. The type with highest
+*  count will be used to find movies in database.
+*/
 app.get('/get/recommandations', function (req, res) {
-        db.collection("poster").find(req.body).toArray((err,result) => {res.send(result);})
+	var scores = [0,0];
+        var maxscore = 0;
+	db.collection("history").find(req.body).toArray((err,result) => {
+		for(var i = 0; i < result.length; i++){
+			if(result[i].like == 1){
+				scores[result[i].movietype] += 2;
+			}else{
+				scores[result[i].movietype]++;
+			}
+		}
+	
+		for(var i = 0; i < scores.length; i++){
+			if(scores[i]>scores[maxscore]){
+				maxscore = i;
+			}
+		}
+	})
+	db.collection("poster").find({"movietype":maxscore}).toArray((err,result) => {
+		res.send(result);
+	})
 })
 
+//Temporary method for getting recommandations
 app.get('/get/rec/:keys', function (req, res) {
 	var url = require('url');
 	var keys = req.params.keys
@@ -60,22 +83,11 @@ app.get('/get/rec/:keys', function (req, res) {
 	var qdata = q.query;
 	var obj = {};
 	obj[qdata.field] = qdata.value;
-	//console.log(obj);
 	db.collection("poster").find(obj).toArray(function(err, result){
               res.send(result);
         })
 })
 
-/*
-app.put('/put/update', function (req, res) {
-        //res.send(req.body.text);
-        db.collection("chatroom").updateOne({"item" : "journal"}, req.body, (err, result) => {res.send("updated\n");})
-})
-
-app.delete('/delete/delete', function (req, res) {
-        db.collection("chatroom").deleteOne(queryJson, (err,result) => {res.send(result);})
-})
-*/
 var server = app.listen(8081, function () {
         var host = server.address().address
         var port = server.address().port
