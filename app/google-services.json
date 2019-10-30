@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1089767445582-4oa9b69nbbd2e35lvnun8bmk07snu86p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.postergo",
+            "certificate_hash": "7b802d746c876f9af611f6422de69be054732be2"
+          }
+        },
+        {
           "client_id": "1089767445582-34769cgdt5eemr9o8ofrlfmlk1rqcu8t.apps.googleusercontent.com",
           "client_type": 3
         }
