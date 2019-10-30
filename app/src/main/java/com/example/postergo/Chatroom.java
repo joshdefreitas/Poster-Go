@@ -27,8 +27,9 @@ public class Chatroom extends AppCompatActivity {
     private String baseURL = "http://13.90.58.142:8081/";
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private List<Message> Updates;
-    private int currentTime=0;
+    //private int currentTime=0;
 
+    private String newMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,28 @@ public class Chatroom extends AppCompatActivity {
         textViewResult.setMovementMethod(new ScrollingMovementMethod());
         editText = findViewById(R.id.editText3);
 
+//        if(getIntent().getStringExtra("New Message") != null) {
+//            newMessage = getIntent().getStringExtra("New Message");
+//            textViewResult.setText("\n" +newMessage);
+//        }
         getUpdates();
 
 
     }
 
+    /*
+     * Allows user to return to the main activity
+     * @param: View
+     */
+
     public void returnMain(View view){
         Intent r = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(r);
     }
+
+    /*
+     * Gets updates to the current chatroom
+     */
 
     public void getUpdates() {
 
@@ -99,6 +113,10 @@ public class Chatroom extends AppCompatActivity {
         });
     }
 
+    /*
+     * Allows user to the message that was typed to the server and shows confirmation
+     * @param: View
+     */
     public void createMessage(View view){
         getUpdates();
         final Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
@@ -148,6 +166,10 @@ public class Chatroom extends AppCompatActivity {
 
     }
 
+    /*
+     * Allows user to manually show updates to the current chatroom
+     * @param: View
+     */
     public void showUpdates(View view){
         getUpdates();
         textViewResult.setText("");
@@ -159,6 +181,8 @@ public class Chatroom extends AppCompatActivity {
 
         }
     }
+
+
 
 
 
