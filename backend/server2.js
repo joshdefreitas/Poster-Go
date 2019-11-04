@@ -84,7 +84,7 @@ app.get("/get/recommandations", function (req, res) {
 	db.collection("poster").find({"movietype":maxscore}).toArray((err,result) => {
 		res.send(result);
 	})
-})
+});
 
 //Temporary method for getting recommandations
 app.get("/get/rec/:keys", function (req, res) {
