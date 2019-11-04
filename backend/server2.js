@@ -44,6 +44,27 @@ app.put("/put/userLike", function (req, res) {
         db.collection("history").updateOne({poster_id:req.body.poster_id},{$set:{like:req.body.like}}, (err, result) => {res.send(req.body);});
 })
 
+var scores;
+var maxscore;
+function findMax(result) {
+	scores = {"action" : 0, "romantic" : 0};
+	maxscore = 0;
+	var i;
+	for(i = 0; i < result.length; i++){
+		if(result[i].like === 1){
+			scores[result[i].movietype] += 2;
+		}else{
+			scores[result[i].movietype]++;
+		}
+	}
+
+	for(i = 0; i < scores.length; i++){
+		if(scores[i]>scores[maxscore]){
+			maxscore = i;
+		}
+	}
+}
+
 /* get recommandations
 *  input: JSON tag "user_name"
 *  return: JSON object array
@@ -53,22 +74,11 @@ app.put("/put/userLike", function (req, res) {
 *  count will be used to find movies in database.
 */
 app.get("/get/recommandations", function (req, res) {
-	var scores = [0,0];
-    var maxscore = 0;
 	db.collection("history").find(req.body).toArray((err,result) => {
-		var i;
-		for(i = 0; i < result.length; i++){
-			if(result[i].like === 1){
-				scores[result[i].movietype] += 2;
-			}else{
-				scores[result[i].movietype]++;
-			}
-		}
-	
-		for(i = 0; i < scores.length; i++){
-			if(scores[i]>scores[maxscore]){
-				maxscore = i;
-			}
+		try{
+			findMax(result);
+		}catch(error){
+			console.error(error);
 		}
 	})
 	db.collection("poster").find({"movietype":maxscore}).toArray((err,result) => {
@@ -86,12 +96,12 @@ app.get("/get/rec/:keys", function (req, res) {
 	obj[qdata.field] = qdata.value;
 	db.collection("poster").find(obj).toArray(function(err, result){
               res.send(result);
-        })
+        });
 });
 
 var server = app.listen(8081, function () {
         var host = server.address().address;
         var port = server.address().port;
-
+        
         //console.log("Example app listening at http://%s:%s", host, port)
 });
