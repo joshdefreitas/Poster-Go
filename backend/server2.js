@@ -13,36 +13,36 @@ app.post("/post/download", function (req, res) {
         db.collection("poster").find({poster_id: req.body.poster_id}).toArray(
 		(err,result) => {
 			res.send(result[0]);
-		})
-})
+		});
+});
 
 //return poster image file
 app.get("/get/downloadPoster/:file", function (req, res, next) {
 	var file = req.params.file;
 	res.sendFile("/home/CPEN321/poster/"+file);
-})
+});
 
 //return messages in same chatroom, but sent after "time"
 app.get("/get/findAllChatByRoomNumber/:num&:time", function (req, res) {
         const num = Number(req.params.num);
 	const time = Number(req.params.time);
 	db.collection("chatroom").find({room_number: num, time: {$gt: time}}).toArray((err,result) => {res.send(result);});
-})
+});
 
 //store new messages in database
 app.post("/post/updateChat", function (req, res) {
 	db.collection("chatroom").insertOne(req.body, (err, result) => {res.send(req.body);});
-})
+});
 
 //store new user view history in database
 app.post("/post/userViewHistory", function (req, res) {
         db.collection("history").insertOne(req.body, (err, result) => {res.send(req.body);});
-})
+});
 
 //update "like" tag in history
 app.put("/put/userLike", function (req, res) {
         db.collection("history").updateOne({poster_id:req.body.poster_id},{$set:{like:req.body.like}}, (err, result) => {res.send(req.body);});
-})
+});
 
 var scores;
 var maxscore;
