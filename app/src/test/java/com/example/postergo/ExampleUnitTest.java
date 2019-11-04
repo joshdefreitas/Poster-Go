@@ -13,6 +13,5 @@ public class ExampleUnitTest {
     @Test
     public void additionIsCorrect() throws Exception {
         /* TODO: Implement this method Test1*/
-        assert(true);
     }
 }
