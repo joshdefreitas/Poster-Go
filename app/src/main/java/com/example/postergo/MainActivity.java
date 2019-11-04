@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         TextInputEditText usernameInput = findViewById(R.id.username_input);
         TextView usernamePrompt = findViewById(R.id.username_prompt);
 
-        GlobalVariables.user_name = usernameInput.getText().toString();
-        usernamePrompt.setText("Username: " + GlobalVariables.user_name);
+        GlobalVariablesHelper.user_name = usernameInput.getText().toString();
+        usernamePrompt.setText("Username: " + GlobalVariablesHelper.user_name);
 
     }
 
