@@ -49,7 +49,6 @@ public class PosterContentLoader {
     private JSONObject listResponse;
     private TextView rPanelTextView;
     private ImageView rPanelImageView;
-    private Button likeButton;
 
     public View rightPanel;
 
@@ -65,12 +64,14 @@ public class PosterContentLoader {
         this.context = context;
         this.queue = Volley.newRequestQueue(context);
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+        LayoutInflater inflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         this.rightPanel = inflater.inflate(R.layout.right_panel, null);
 
         rPanelTextView = rightPanel.findViewById(R.id.right_text);
         rPanelImageView = rightPanel.findViewById(R.id.right_image);
-        likeButton = rightPanel.findViewById(R.id.like_button);
+        Button likeButton = rightPanel.findViewById(R.id.like_button);
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,8 +149,7 @@ public class PosterContentLoader {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse: dl imgdb: " + error.getMessage());
                     }
-                },
-                null
+                }
         );
 
         queue.add(request);
@@ -191,6 +191,7 @@ public class PosterContentLoader {
                 listResponse,
                 new Response.Listener<JSONObject>() {
 
+                    // No response for this request
                     @Override
                     public void onResponse(JSONObject response) {
                     }
@@ -211,14 +212,14 @@ public class PosterContentLoader {
     private void loadContentToView(Integer id) {
         try{
             rPanelTextView.setText(listResponse.getString("description"));
-            this.getImgContent(imgUrlHead + this.listResponse.getString("filename"), id);
+            this.getImgContent(imgUrlHead + this.listResponse.getString("filename"));
         } catch (JSONException e) {
             Log.d(TAG, "loadContentToView: JSONException");
             e.printStackTrace();
         }
     }
 
-    private void getImgContent(String urlString, Integer id) {
+    private void getImgContent(String urlString) {
         ImageRequest imageRequest = new ImageRequest(
                 urlString,
                 new Response.Listener<Bitmap>() {
@@ -253,7 +254,7 @@ public class PosterContentLoader {
 
             @Override
             public void retry(VolleyError error) throws VolleyError {
-
+                Log.d(TAG, "retry: " + error.toString());
             }
         });
 

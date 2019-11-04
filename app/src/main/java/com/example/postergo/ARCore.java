@@ -44,8 +44,6 @@ public class ARCore extends AppCompatActivity {
                 frame.getUpdatedTrackables(AugmentedImage.class);
         for (AugmentedImage augmentedImage : updatedAugmentedImages) {
             switch (augmentedImage.getTrackingState()) {
-                case PAUSED:
-                    break;
 
                 case TRACKING:
                     // The Trackable is currently tracked and its pose is current.
@@ -63,6 +61,9 @@ public class ARCore extends AppCompatActivity {
 
                 case STOPPED:
                     posterMap.remove(augmentedImage);
+                    break;
+
+                default:
                     break;
             }
         }

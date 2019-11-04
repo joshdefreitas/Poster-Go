@@ -17,18 +17,17 @@ import java.util.concurrent.CompletableFuture;
 public class ARCoreNode extends AnchorNode {
 
     private static final String TAG = "ARCoreNode";
+    private static float panelHeight = 0.3f;
+    private static float panelWidth = 0.24f;
 
-    private AugmentedImage image;
-
-    private static CompletableFuture<ViewRenderable> rightPanel;
-    private static FixedHeightViewSizer panelSizer;
+    private  CompletableFuture<ViewRenderable> rightPanel;
 
     /*
     * Create ARCoreNode, build viewRenderable for right panel
     */
     @SuppressWarnings({"AndroidApiChecker"})
     public ARCoreNode(Context context, View view) {
-        panelSizer = new FixedHeightViewSizer(0.3f);
+        FixedHeightViewSizer panelSizer = new FixedHeightViewSizer(panelHeight);
 
         if (rightPanel == null) {
             rightPanel =
@@ -49,7 +48,6 @@ public class ARCoreNode extends AnchorNode {
     */
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     public void setImage(AugmentedImage image) {
-        this.image = image;
 
         if (!rightPanel.isDone()) {
             CompletableFuture.allOf(rightPanel)
@@ -66,7 +64,10 @@ public class ARCoreNode extends AnchorNode {
         setAnchor(image.createAnchor(image.getCenterPose()));
         Node panelNode;
 
-        localPosition.set(0.5f * image.getExtentX() + 0.12f, 0.0f, 0.15f);
+        localPosition.set(0.5f * image.getExtentX() + 0.5f * panelWidth,
+                0.0f,
+                0.5f * panelHeight);
+
         panelNode = new Node();
         panelNode.setParent(this);
         panelNode.setLocalPosition(localPosition);
