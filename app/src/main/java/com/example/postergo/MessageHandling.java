@@ -1,6 +1,6 @@
 package com.example.postergo;
 
-import android.content.Intent;
+//import android.content.Intent; //To be used later to make intents
 import android.util.Log;
 import android.widget.Toast;
 
