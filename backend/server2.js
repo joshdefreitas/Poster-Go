@@ -48,7 +48,6 @@ var scores;
 var maxscore;
 function findMax(result) {
 	scores = {"action" : 0, "romantic" : 0};
-	maxscore = 0;
 	var i;
 	for(i = 0; i < result.length; i++){
 		if(result[i].like === 1){
@@ -58,6 +57,11 @@ function findMax(result) {
 		}
 	}
 
+}
+
+function findMaxScore() {
+	maxscore = 0;
+	var i;
 	for(i = 0; i < scores.length; i++){
 		if(scores[i]>scores[maxscore]){
 			maxscore = i;
