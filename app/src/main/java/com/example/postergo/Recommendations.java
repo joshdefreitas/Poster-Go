@@ -18,8 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Recommendations extends AppCompatActivity {
 
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
-    TextView textView ;
+    private TextView textView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class Recommendations extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        jsonPlaceHolderApi =retrofit.create(JsonPlaceHolderApi.class);
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Call<List<Poster>> call = jsonPlaceHolderApi.getRecommendations();
 

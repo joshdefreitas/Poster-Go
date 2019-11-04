@@ -10,8 +10,7 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MessageHandling extends FirebaseMessagingService {
     private static final String TAG = "MessageHandling";
 
-    public MessageHandling() {
-    }
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -25,20 +24,21 @@ public class MessageHandling extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+        /* TODO: Implement this method to manage incoming notifications */
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                //scheduleJob();
-                //startChatroom();
-                //Toast.makeText(getApplicationContext(), "messaged received schedule", Toast.LENGTH_LONG).show();
-
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
-                //Toast.makeText(getApplicationContext(), "message received handle", Toast.LENGTH_LONG).show();
-                //startChatroom();
-
-            }
+//            if (/* Check if data needs to be processed by long running job */ true) {
+//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+//                scheduleJob();
+//                startChatroom();
+//                Toast.makeText(getApplicationContext(), "messaged received schedule", Toast.LENGTH_LONG).show();
+//
+//            } else {
+////                 Handle message within 10 seconds
+//                handleNow();
+//                Toast.makeText(getApplicationContext(), "message received handle", Toast.LENGTH_LONG).show();
+//                startChatroom();
+//
+//            }
 
         }
 
@@ -59,17 +59,20 @@ public class MessageHandling extends FirebaseMessagingService {
 
     }
 
-    private void handleNow() {
-
-    }
-
-    private void scheduleJob() {
-    }
-
-    public void startChatroom(){
-        Intent c = new Intent(getApplicationContext(),Chatroom.class);
-        //c.putExtra("New Message",message);
-        startActivity(c);
-    }
+//    TODO: Implement and use these methods
+//    private void handleNow() {
+//        /* TODO: Implement this method handleNow*/
+//    }
+//
+//    private void scheduleJob() {
+//        /* TODO: Implement this method scheduleJob*/
+//    }
+//
+//    public void startChatroom(){
+//        /* TODO: Implement this method startChatroom */
+//        Intent c = new Intent(getApplicationContext(),Chatroom.class);
+//        //c.putExtra("New Message",message);
+//        startActivity(c);
+//    }
 
 }

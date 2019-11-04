@@ -25,9 +25,8 @@ public class Chatroom extends AppCompatActivity {
     private String baseURL = "http://13.90.58.142:8081/";
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private List<Message> Updates;
-    //private int currentTime=0;
+    //private int currentTime=0; //To be used another time
 
-    private String newMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +118,7 @@ public class Chatroom extends AppCompatActivity {
         getUpdates();
         final Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://13.90.58.142:8081/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
