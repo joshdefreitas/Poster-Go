@@ -6,7 +6,7 @@ app.use(express.json());
 
 //using database named as "local"
 mongoclient.connect("mongodb://127.0.0.1:27017",
-	(err, client) => {db = client.db("local");})
+	(err, client) => {db = client.db("local");});
 
 //return poster JSON object found by poster_id
 app.post("/post/download", function (req, res) {
@@ -54,9 +54,10 @@ app.put("/put/userLike", function (req, res) {
 */
 app.get("/get/recommandations", function (req, res) {
 	var scores = [0,0];
-        var maxscore = 0;
+    var maxscore = 0;
 	db.collection("history").find(req.body).toArray((err,result) => {
-		for(var i = 0; i < result.length; i++){
+		var i;
+		for(i = 0; i < result.length; i++){
 			if(result[i].like === 1){
 				scores[result[i].movietype] += 2;
 			}else{
@@ -64,7 +65,7 @@ app.get("/get/recommandations", function (req, res) {
 			}
 		}
 	
-		for(var i = 0; i < scores.length; i++){
+		for(i = 0; i < scores.length; i++){
 			if(scores[i]>scores[maxscore]){
 				maxscore = i;
 			}
@@ -86,7 +87,7 @@ app.get("/get/rec/:keys", function (req, res) {
 	db.collection("poster").find(obj).toArray(function(err, result){
               res.send(result);
         })
-})
+});
 
 var server = app.listen(8081, function () {
         var host = server.address().address;
