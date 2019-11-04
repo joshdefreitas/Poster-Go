@@ -8,19 +8,19 @@ public class Poster {
     private String filename;
     private String movietype;
 
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void setId(String _id) {
         this._id = _id;
     }
 
-    public int getPoster_id() {
+    public int getPosterId() {
         return poster_id;
     }
 
-    public void setPoster_id(int poster_id) {
+    public void setPosterId(int poster_id) {
         this.poster_id = poster_id;
     }
 

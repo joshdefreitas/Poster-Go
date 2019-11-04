@@ -3,9 +3,7 @@ package com.example.postergo;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -137,8 +135,8 @@ public class Chatroom extends AppCompatActivity {
                     return;
                 }
 
-                Message responseMessage = new Message(response.body().get_id(),response.body().getUser_id(),response.body().getString(),
-                        response.body().getTime(),response.body().getRoom_number(),response.body().getUser_name());
+                Message responseMessage = new Message(response.body().getId(),response.body().getUserId(),response.body().getString(),
+                        response.body().getTime(),response.body().getRoomNumber(),response.body().getUserName());
 
 //                    String content = "";
 //                    content += responseMessage.getUser_name() + ": " + responseMessage.getString();
@@ -175,7 +173,7 @@ public class Chatroom extends AppCompatActivity {
         textViewResult.setText("");
         for(Message message : Updates){
             String content = "";
-            content += message.getUser_name() + ": " + message.getString();
+            content += message.getUserName() + ": " + message.getString();
             content += "\n\n";
             textViewResult.append(content);
 

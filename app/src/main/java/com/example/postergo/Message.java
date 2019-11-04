@@ -26,19 +26,19 @@ public class Message {
         this.user_name = user_name;
     }
 
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void setId(String _id) {
         this._id = _id;
     }
 
-    public int getUser_id() {
+    public int getUserId() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUserId(int user_id) {
         this.user_id = user_id;
     }
 
@@ -58,19 +58,19 @@ public class Message {
         this.time = time;
     }
 
-    public int getRoom_number() {
+    public int getRoomNumber() {
         return room_number;
     }
 
-    public void setRoom_number(int room_number) {
+    public void setRoomNumber(int room_number) {
         this.room_number = room_number;
     }
 
-    public String getUser_name() {
+    public String getUserName() {
         return user_name;
     }
 
-    public void setUser_name(String user_name) {
+    public void setUserName(String user_name) {
         this.user_name = user_name;
     }
 }

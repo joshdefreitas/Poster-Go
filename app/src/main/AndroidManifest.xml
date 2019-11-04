@@ -25,10 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service
-            android:name=".ManageMessages"
-            android:exported="false" />
-
         <activity android:name=".ARCore" />
         <activity android:name=".Recommendations" />
         <activity android:name=".Chatroom" />
