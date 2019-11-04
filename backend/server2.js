@@ -1,12 +1,12 @@
 var express = require("express");
 const mongoclient = require("mongodb").MongoClient;
-
+var db;
 var app = express();
 app.use(express.json());
 
 //using database named as "local"
 mongoclient.connect("mongodb://127.0.0.1:27017",
-	(err, client) => {db = client.db("local")})
+	(err, client) => {db = client.db("local");})
 
 //return poster JSON object found by poster_id
 app.post("/post/download", function (req, res) {
@@ -24,7 +24,7 @@ app.get("/get/downloadPoster/:file", function (req, res, next) {
 
 //return messages in same chatroom, but sent after "time"
 app.get("/get/findAllChatByRoomNumber/:num&:time", function (req, res) {
-        const num = Number(req.params.num)
+        const num = Number(req.params.num);
 	const time = Number(req.params.time);
 	db.collection("chatroom").find({room_number: num, time: {$gt: time}}).toArray((err,result) => {res.send(result);});
 })
@@ -93,4 +93,4 @@ var server = app.listen(8081, function () {
         var port = server.address().port;
 
         //console.log("Example app listening at http://%s:%s", host, port)
-})
+});
