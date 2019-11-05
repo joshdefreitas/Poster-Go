@@ -76,7 +76,7 @@ public class PosterContentLoader {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postHistoryAndLike(1, GlobalVariables.user_name);
+                postHistoryAndLike(1, GlobalVariablesHelper.user_name);
                 Log.d(TAG, "onClick: liked");
             }
         });
@@ -100,8 +100,8 @@ public class PosterContentLoader {
                         @Override
                         public void onResponse(JSONObject response) {
                             listResponse = response;
-                            postHistoryAndLike(0, GlobalVariables.user_name);
-                            loadContentToView(id);
+                            postHistoryAndLike(0, GlobalVariablesHelper.user_name);
+                            loadContentToView();
                         }
                     },
                     new Response.ErrorListener() {
@@ -191,9 +191,9 @@ public class PosterContentLoader {
                 listResponse,
                 new Response.Listener<JSONObject>() {
 
-                    // No response for this request
                     @Override
                     public void onResponse(JSONObject response) {
+                        // No response for this request
                     }
                 },
                 new Response.ErrorListener() {
@@ -209,7 +209,7 @@ public class PosterContentLoader {
 
     }
 
-    private void loadContentToView(Integer id) {
+    private void loadContentToView() {
         try{
             rPanelTextView.setText(listResponse.getString("description"));
             this.getImgContent(imgUrlHead + this.listResponse.getString("filename"));
