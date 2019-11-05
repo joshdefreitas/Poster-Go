@@ -8,7 +8,12 @@ import static org.junit.Assert.*;
 import androidx.test.InstrumentationRegistry;
 */
 
+import android.content.Context;
+
+import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 import org.junit.runner.RunWith;
@@ -23,11 +28,11 @@ import org.junit.runner.RunWith;
 public class ExampleInstrumentedTest {
     //TODO:Implement tests
 
-//    @Test
-//    public void useAppContext() {
-//        // Context of the app under test.
-//        Context appContext = InstrumentationRegistry.getTargetContext();
-//
-//        assertEquals("com.example.postergo", appContext.getPackageName());
-//    }
+    @Test
+    public void useAppContext() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        assertEquals("com.example.postergo", appContext.getPackageName());
+    }
 }
