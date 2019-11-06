@@ -13,10 +13,12 @@ import android.content.Context;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 import org.junit.Test;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 
 import org.junit.runner.RunWith;
+
+import static junit.framework.TestCase.assertEquals;
 
 
 /**
