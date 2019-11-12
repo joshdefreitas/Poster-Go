@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,8 +50,10 @@ public class PosterContentLoader {
     private JSONObject listResponse;
     private TextView rPanelTextView;
     private ImageView rPanelImageView;
+    public WebView lWebView;
 
     public View rightPanel;
+    public View leftPanel;
 
     /*
     * Create new posterContentLoader,
@@ -68,10 +71,15 @@ public class PosterContentLoader {
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         this.rightPanel = inflater.inflate(R.layout.right_panel, null);
+        this.leftPanel = inflater.inflate(R.layout.left_panel, null);
 
         rPanelTextView = rightPanel.findViewById(R.id.right_text);
         rPanelImageView = rightPanel.findViewById(R.id.right_image);
+        lWebView = leftPanel.findViewById(R.id.left_webview);
         Button likeButton = rightPanel.findViewById(R.id.like_button);
+
+        lWebView.getSettings().setDisplayZoomControls(true);
+        lWebView.loadUrl("https://m.imdb.com");
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
