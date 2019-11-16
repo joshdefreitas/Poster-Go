@@ -22,7 +22,7 @@ public class ARCoreFragment extends ArFragment {
 
     private static final String TAG = "ARCoreFragment";
 
-    /*
+    /**
     * Turn off plane discovery onCreateView,
     * since we are using augmentedImage
     */
@@ -37,12 +37,12 @@ public class ARCoreFragment extends ArFragment {
         return view;
     }
 
-    /*
+    /**
     * Get the session configuration, set auto focus mode for camera
     *
-    * Param:
+    * @param
     * session: current session
-    * Return:
+    * @return
     * the config of current session
     */
     @Override
@@ -53,13 +53,13 @@ public class ARCoreFragment extends ArFragment {
         return config;
     }
 
-    /*
+    /**
     * Load the augmentedImageDatabase from local storage
     *
-    * Param:
+    * @param
     * config: session configuration
     * session: current session
-    * Return:
+    * @return
     * true for successfully loaded the augmentedImageDatabase,
     * otherwise false
     */

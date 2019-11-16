@@ -20,7 +20,7 @@ public class ARCore extends AppCompatActivity {
     private PosterContentLoader posterContentLoader;
     private final Map<AugmentedImage, ARCoreNode> posterMap = new HashMap<>();
 
-    /*
+    /**
     * Setup posterContentLoader and arFragment onCreate
     */
     @Override

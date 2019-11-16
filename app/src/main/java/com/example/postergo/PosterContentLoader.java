@@ -55,12 +55,12 @@ public class PosterContentLoader {
     public View rightPanel;
     public View leftPanel;
 
-    /*
+    /**
     * Create new posterContentLoader,
     * Get context, initialize volley queue, inflate the right panel view
     * Setup the onClickListener for "like" button
     *
-    * Param:
+    * @param
     * context: the current context
     */
     public PosterContentLoader(Context context) {
@@ -90,10 +90,10 @@ public class PosterContentLoader {
         });
     }
 
-    /*
+    /**
     * Load poster description and supplementary image to right panel view
     *
-    * Param:
+    * @param
     * id: the poster id from augmentedImageDatabase
     */
     public void getContent(Integer id) {
@@ -127,7 +127,7 @@ public class PosterContentLoader {
 
 
 
-    /*
+    /**
     * Load augmentedImageDatabase from the backend,
     * and save it on local storage
     */
@@ -163,11 +163,11 @@ public class PosterContentLoader {
         queue.add(request);
     }
 
-    /*
+    /**
     * Post view history to the backend,
     * put the "liked" information to the backend if user liked the poster
     *
-    * Param:
+    * @param
     * like: 0 for post history, 1 for put like
     * username: current user who viewed and liked the poster
     */

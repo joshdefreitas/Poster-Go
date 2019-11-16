@@ -17,14 +17,19 @@ import java.util.concurrent.CompletableFuture;
 public class ARCoreNode extends AnchorNode {
 
     private static final String TAG = "ARCoreNode";
-    private static float panelHeight = 0.3f;
-    private static float panelWidth = 0.24f;
+    private static float panelHeight = 0.279f;
+    private static float panelWidth = 0.223f;
 
     private CompletableFuture<ViewRenderable> leftPanel;
     private CompletableFuture<ViewRenderable> rightPanel;
 
-    /*
-    * Create ARCoreNode, build viewRenderable for two panels
+    /**
+     * Create ARCoreNode, build viewRenderable for two panels
+     * @param
+     * context: current context
+     * leftView: left panel view
+     * rightView: right panel view
+     *
     */
     @SuppressWarnings({"AndroidApiChecker"})
     public ARCoreNode(Context context, View leftView, View rightView) {
@@ -49,10 +54,10 @@ public class ARCoreNode extends AnchorNode {
 
     }
 
-    /*
+    /**
     * Accept panel renderables and set them to the two sides of the image
     *
-    * Param:
+    * @param
     * image: the image that is currently tracked
     */
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
