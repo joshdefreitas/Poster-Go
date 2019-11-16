@@ -51,8 +51,14 @@ public class ARCore extends AppCompatActivity {
                     if (!posterMap.containsKey(augmentedImage)) {
 
                         posterContentLoader.getContent(augmentedImage.getIndex());
+                        posterContentLoader.lWebView.reload();
 
-                        ARCoreNode node = new ARCoreNode(this, posterContentLoader.rightPanel);
+                        ARCoreNode node = new ARCoreNode(
+                                this,
+                                posterContentLoader.leftPanel,
+                                posterContentLoader.rightPanel
+                        );
+
                         node.setImage(augmentedImage);
                         posterMap.put(augmentedImage, node);
                         arFragment.getArSceneView().getScene().addChild(node);
