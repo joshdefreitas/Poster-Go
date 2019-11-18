@@ -96,12 +96,21 @@ public class PosterGoEspressoTest {
      */
 
     @Test
-    public void getRecommendationsTest(){
+    public void getRecommendationsNameTest(){
         onView(withId(R.id.recommendations_button))
                 .perform(click());
         onView(withId(R.id.showRecommButton))
                 .perform(click());
         onView(withId(R.id.recommendations))
-                .check(matches(withText("6\n/home/CPEN321/poster/6.jpg")));
+                .check(matches(withText("6\n")));
+    }
+
+    public void getRecommendationsImageTest(){
+        onView(withId(R.id.recommendations_button))
+                .perform(click());
+        onView(withId(R.id.showRecommButton))
+                .perform(click());
+        onView(withId(R.id.recommendationView2))
+                .check(matches(withText("/home/CPEN321/poster/6.jpg\n")));
     }
 }

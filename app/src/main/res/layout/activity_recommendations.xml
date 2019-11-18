@@ -42,4 +42,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recommendations"
         app:layout_constraintVertical_bias="0.797" />
+
+    <TextView
+        android:id="@+id/recommendationView2"
+        android:layout_width="218dp"
+        android:layout_height="103dp"
+        android:text="Poster Name"
+        app:layout_constraintBottom_toTopOf="@+id/showRecommButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommendations" />
 </androidx.constraintlayout.widget.ConstraintLayout>

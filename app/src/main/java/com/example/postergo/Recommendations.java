@@ -26,6 +26,7 @@ public class Recommendations extends AppCompatActivity {
     private TextView textView ;
     private String user_name = "Brant";
     private List<RecommJSON> recommJSONList;
+    private TextView textView2;
 
 
     @Override
@@ -33,6 +34,7 @@ public class Recommendations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommendations);
         textView = findViewById(R.id.recommendations);
+        textView2 = findViewById(R.id.recommendationView2);
 
     }
 
@@ -58,7 +60,10 @@ public class Recommendations extends AppCompatActivity {
         //TODO: Implement method to show recommendations received from server
         textView.setText("");
         for (RecommJSON recommendation : recommJSONList){
-            textView.setText(recommendation.getPoster_id() + "\n" + recommendation.getFilepath());
+            textView.setText(recommendation.getFilepath()+"\n");
+        }
+        for (RecommJSON recommendation2 :recommJSONList){
+            textView2.setText(recommendation2.getFilepath()+"\n");
         }
 
     }
