@@ -77,4 +77,13 @@ public class PosterGoEspressoTest {
 
     }
 
+    @Test
+    public void getRecommendationsTest(){
+        onView(withId(R.id.recommendations_button))
+                .perform(click());
+        onView(withId(R.id.showRecommButton))
+                .perform(click());
+        onView(withId(R.id.recommendations))
+                .check(matches(withText("6\n/home/CPEN321/poster/6.jpg")));
+    }
 }
