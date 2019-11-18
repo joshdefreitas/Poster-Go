@@ -77,6 +77,10 @@ public class PosterGoEspressoTest {
 
     }
 
+    /**
+     * Test suite for Recommendations activity
+     */
+
     @Test
     public void getRecommendationsTest(){
         onView(withId(R.id.recommendations_button))
