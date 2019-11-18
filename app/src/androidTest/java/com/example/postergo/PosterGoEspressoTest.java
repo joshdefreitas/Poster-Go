@@ -65,8 +65,25 @@ public class PosterGoEspressoTest {
      */
 
     @Test
-    public void sendMessageTest() {
+    public void updateChatTest() {
+        onView(withId(R.id.chat_button))
+                .perform(click());
+        onView(withId(R.id.update_button))
+                .perform(click());
+        onView(withId(R.id.mainMessageView))
+                .check(matches(withText(
+                    "Taro: Hello Jack!\n\nJack: Hey Taro!\n\nTaro: How's your holiday?\n\nTaro: Have you been anywhere?\n\nJack: Yes, in my dream.\n\nJosh: hi how are you\n\nJosh: hello\n\nJosh: hi\n\n"
+                )));
 
     }
 
+    @Test
+    public void getRecommendationsTest(){
+        onView(withId(R.id.recommendations_button))
+                .perform(click());
+        onView(withId(R.id.showRecommButton))
+                .perform(click());
+        onView(withId(R.id.recommendations))
+                .check(matches(withText("6\n/home/CPEN321/poster/6.jpg")));
+    }
 }
