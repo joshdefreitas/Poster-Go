@@ -49,8 +49,6 @@ public class PosterGoEspressoTest {
                 .check(matches(isDisplayed()));
     }
 
-
-
     private void inputUsername() {
         onView(withId(R.id.username_input))
                 .perform(typeText("Espresso"));
@@ -59,6 +57,16 @@ public class PosterGoEspressoTest {
                 .perform(click());
 
         onView(isRoot()).perform(pressBack());
+    }
+
+
+    /**
+     * Test suite for Chatroom activity
+     */
+
+    @Test
+    public void sendMessageTest() {
+
     }
 
 }
