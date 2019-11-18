@@ -1,12 +1,6 @@
 package com.example.postergo;
 
-/*
-//To be used with tests
-import android.content.Context;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import androidx.test.InstrumentationRegistry;
-*/
+import android.os.SystemClock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,15 +12,17 @@ import androidx.test.runner.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.pressBack;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-//import static org.junit.Assert.*;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * UI test with Espresso
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -37,10 +33,32 @@ public class PosterGoEspressoTest {
             new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void AROpenTest() {
+    public void usernameInputTest() {
+        inputUsername();
+
+        onView(withId(R.id.username_prompt))
+                .check(matches(withText("Username: Espresso")));
+    }
+
+    @Test
+    public void openARViewTest() {
         onView(withId(R.id.AR_button))
                 .perform(click());
+
+        onView(withId(R.id.ux_fragment))
+                .check(matches(isDisplayed()));
     }
+
+    private void inputUsername() {
+        onView(withId(R.id.username_input))
+                .perform(typeText("Espresso"));
+
+        onView((withId(R.id.username_ok)))
+                .perform(click());
+
+        onView(isRoot()).perform(pressBack());
+    }
+
 
     /**
      * Test suite for Chatroom activity
@@ -48,9 +66,5 @@ public class PosterGoEspressoTest {
 
     @Test
     public void sendMessageTest(){
-
-    }
-
-
 
 }

@@ -180,8 +180,6 @@ public class PosterContentLoader {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "postHistoryAndLike: " + listResponse.toString());
-
         String url = "";
         int requestMethod = 0;
 
