@@ -65,6 +65,8 @@ public class PosterGoEspressoTest {
      */
 
     @Test
-    public void sendMessageTest(){
+    public void sendMessageTest() {
+
+    }
 
 }
