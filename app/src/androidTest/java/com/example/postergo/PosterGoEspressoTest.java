@@ -41,4 +41,16 @@ public class PosterGoEspressoTest {
         onView(withId(R.id.AR_button))
                 .perform(click());
     }
+
+    /**
+     * Test suite for Chatroom activity
+     */
+
+    @Test
+    public void sendMessageTest(){
+
+    }
+
+
+
 }

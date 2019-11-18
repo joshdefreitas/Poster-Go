@@ -173,6 +173,7 @@ public class Chatroom extends AppCompatActivity {
 
         }
     }
+
     public void showUpdates(){
         getUpdates();
         textViewResult.setText("");
