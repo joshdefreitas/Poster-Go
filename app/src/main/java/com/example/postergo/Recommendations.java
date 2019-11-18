@@ -53,17 +53,21 @@ public class Recommendations extends AppCompatActivity {
         textView.setText("");
     }
 
-    public void showRecommendations(List<RecommJSON> recommendations){
+    public void showRecommendations(){
         //TODO: Implement method to show recommendations received from server
         textView.setText("");
+        for (RecommJSON recommendation : recommJSONList){
+            textView.setText(recommendation.getPoster_id() + "\n" + recommendation.getFilepath());
+        }
+
     }
 
-    /* Test Method
+    /*
      * Makes a recommendation request and displays results
      * @param: View
      */
     public void getRecomm(View view) {
-
+            textView.setText("get recomm");
         final User user = new User(user_name);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
@@ -89,14 +93,15 @@ public class Recommendations extends AppCompatActivity {
 
                 toast.show();
 
-                showRecommendations(recommJSONList);
+                showRecommendations();
 
 
             }
 
             @Override
             public void onFailure(Call<List<RecommJSON>> call, Throwable t) {
-
+                textView.setText("no response");
+                //textView.setText(t.getMessage());
             }
         });
 

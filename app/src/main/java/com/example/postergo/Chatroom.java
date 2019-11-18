@@ -33,7 +33,10 @@ public class Chatroom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
         TextView textView = findViewById(R.id.textView);
-        textView.setText(getIntent().getStringExtra("PosterName"));
+
+        if(getIntent().getStringExtra("PosterName") != null) {
+            textView.setText(getIntent().getStringExtra("PosterName"));
+        }
 
         ErrorMessage = findViewById(R.id.errorBox);
         textViewResult = findViewById(R.id.mainMessageView);
@@ -85,20 +88,6 @@ public class Chatroom extends AppCompatActivity {
                             //errorMessage.setText("passed");
 
                             Updates = response.body();
-
-
-//                        for (Message message : Updates) {
-//                            String content = "";
-//                            content += message.getUser_name() + ": " + message.getString();
-//                            content += "\n\n";
-//                            textViewResult.append(content);
-//
-//                        }
-
-//                Message.setText(messageList.get(0).getString());
-//                User.setText(messageList.get(0).getUser_name());
-
-
 
 
             }

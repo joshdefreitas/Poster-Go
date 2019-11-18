@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = "MainActivity";
+    private String token;
 
 
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // Get new Instance ID token
-                        String token = task.getResult().getToken();
+                        token = task.getResult().getToken();
                         // Log and toast
                         //String msg = getString(R.string.msg_token_fmt, token);
                         String msg = token;
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         usernamePrompt.setText("Username: " + GlobalVariablesHelper.user_name);
 
     }
+
 
 
 

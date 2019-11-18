@@ -1,6 +1,7 @@
 package com.example.postergo;
 
 //import android.content.Intent; //To be used later to make intents
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,32 +20,32 @@ public class MessageHandling extends FirebaseMessagingService {
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Toast.makeText(getApplicationContext(),"Message received",Toast.LENGTH_LONG).show();
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
         /* TODO: Implement this method to manage incoming notifications */
 
-//            if (/* Check if data needs to be processed by long running job */ true) {
-//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//                scheduleJob();
-//                startChatroom();
-//                Toast.makeText(getApplicationContext(), "messaged received schedule", Toast.LENGTH_LONG).show();
-//
-//            } else {
-////                 Handle message within 10 seconds
-//                handleNow();
-//                Toast.makeText(getApplicationContext(), "message received handle", Toast.LENGTH_LONG).show();
-//                startChatroom();
-//
-//            }
+            if (/* Check if data needs to be processed by long running job */ true) {
+                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+                //scheduleJob();
+
+            } else {
+//                 Handle message within 10 seconds
+                //handleNow();
+
+
+            }
 
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
+            String msg = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+            startChatroom();
+
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -68,11 +69,11 @@ public class MessageHandling extends FirebaseMessagingService {
 //        /* TODO: Implement this method scheduleJob*/
 //    }
 //
-//    public void startChatroom(){
-//        /* TODO: Implement this method startChatroom */
-//        Intent c = new Intent(getApplicationContext(),Chatroom.class);
-//        //c.putExtra("New Message",message);
-//        startActivity(c);
-//    }
+    public void startChatroom(){
+        /* TODO: Implement this method startChatroom */
+        Intent dialogIntent = new Intent(this, Chatroom.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogIntent);
+    }
 
 }
