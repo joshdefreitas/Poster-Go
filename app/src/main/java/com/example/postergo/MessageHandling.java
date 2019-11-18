@@ -73,6 +73,7 @@ public class MessageHandling extends FirebaseMessagingService {
         /* TODO: Implement this method startChatroom */
         Intent dialogIntent = new Intent(this, Chatroom.class);
         dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        dialogIntent.putExtra("action","refresh");
         startActivity(dialogIntent);
     }
 

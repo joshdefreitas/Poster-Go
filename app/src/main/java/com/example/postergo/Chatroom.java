@@ -49,6 +49,12 @@ public class Chatroom extends AppCompatActivity {
 //        }
         getUpdates();
 
+        if(getIntent().getStringExtra("action")!=null && getIntent().getStringExtra("action").equals("refresh")){
+            getUpdates();
+            showUpdates();
+        }
+
+
 
     }
 
@@ -165,6 +171,24 @@ public class Chatroom extends AppCompatActivity {
             content += "\n\n";
             textViewResult.append(content);
 
+        }
+    }
+    public void showUpdates(){
+        getUpdates();
+        textViewResult.setText("");
+
+        if(Updates != null) {
+            for (Message message : Updates) {
+                String content = "";
+                content += message.getUserName() + ": " + message.getString();
+                content += "\n\n";
+                textViewResult.append(content);
+                Toast.makeText(this, "Chat updated", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        else{
+            Toast.makeText(this,"No new updates",Toast.LENGTH_SHORT).show();
         }
     }
 
