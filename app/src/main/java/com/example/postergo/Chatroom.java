@@ -141,6 +141,7 @@ public class Chatroom extends AppCompatActivity {
 //                    textViewResult.append(content);
 //                    ErrorMessage.setText(response.code());
                 Updates.add(responseMessage);
+                showUpdates();
 
 
                 Toast toast = Toast.makeText(getApplicationContext(),
