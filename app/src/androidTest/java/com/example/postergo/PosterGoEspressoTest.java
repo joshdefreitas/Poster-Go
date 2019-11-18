@@ -105,6 +105,7 @@ public class PosterGoEspressoTest {
                 .check(matches(withText("6\n")));
     }
 
+    @Test
     public void getRecommendationsImageTest(){
         onView(withId(R.id.recommendations_button))
                 .perform(click());
