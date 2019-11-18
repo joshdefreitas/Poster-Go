@@ -27,6 +27,7 @@ public class Recommendations extends AppCompatActivity {
     private String user_name = "Brant";
     private List<RecommJSON> recommJSONList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

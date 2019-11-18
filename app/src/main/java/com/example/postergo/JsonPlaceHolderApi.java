@@ -19,6 +19,6 @@ public interface JsonPlaceHolderApi {
         @GET("get/rec/field=movietype&value=action")
         Call <List<Poster>> getRecommendations();
 
-        @GET ("get/recommendations")
+        @POST ("post/recommendations")
         Call<List<RecommJSON>> getRecommendations(@Body User user);
 }
