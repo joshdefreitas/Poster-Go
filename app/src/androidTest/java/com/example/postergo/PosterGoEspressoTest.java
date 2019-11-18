@@ -77,6 +77,20 @@ public class PosterGoEspressoTest {
 
     }
 
+    @Test
+    public void newMessageTest(){
+
+        onView(withId(R.id.chat_button))
+                .perform(click());
+        onView(withId(R.id.enter_message))
+                .perform(typeText("Test Message"));
+        onView(withId(R.id.send))
+                .perform(click());
+        onView(withId(R.id.messasge))
+                .check(matches(withText("Test Message")));
+
+    }
+
     /**
      * Test suite for Recommendations activity
      */

@@ -25,6 +25,7 @@ public class Chatroom extends AppCompatActivity {
     private String baseURL = "http://13.90.58.142:8081/";
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private List<Message> Updates;
+    private TextView messageView;
     //private int currentTime=0; //To be used another time
 
 
@@ -41,7 +42,8 @@ public class Chatroom extends AppCompatActivity {
         ErrorMessage = findViewById(R.id.errorBox);
         textViewResult = findViewById(R.id.mainMessageView);
         textViewResult.setMovementMethod(new ScrollingMovementMethod());
-        editText = findViewById(R.id.editText3);
+        editText = findViewById(R.id.enter_message);
+        messageView = findViewById(R.id.messasge);
 
 //        if(getIntent().getStringExtra("New Message") != null) {
 //            newMessage = getIntent().getStringExtra("New Message");
@@ -112,6 +114,7 @@ public class Chatroom extends AppCompatActivity {
     public void createMessage(View view){
         getUpdates();
         final Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
+        messageView.setText(editText.getText().toString());
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
