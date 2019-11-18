@@ -20,5 +20,5 @@ public interface JsonPlaceHolderApi {
         Call <List<Poster>> getRecommendations();
 
         @GET ("get/recommendations")
-        Call<List<RecommJSON>> getRecommedations(@Body User user);
+        Call<List<RecommJSON>> getRecommendations(@Body User user);
 }
