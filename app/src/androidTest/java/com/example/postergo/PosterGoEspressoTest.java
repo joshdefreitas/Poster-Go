@@ -49,15 +49,6 @@ public class PosterGoEspressoTest {
                 .check(matches(isDisplayed()));
     }
 
-    public void panelDisplayTest() {
-        inputUsername();
-
-        onView(withId(R.id.AR_button))
-                .perform(click());
-
-        SystemClock.sleep(3000);
-    }
-
 
 
     private void inputUsername() {
