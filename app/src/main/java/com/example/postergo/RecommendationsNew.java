@@ -49,8 +49,8 @@ public class RecommendationsNew extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(this, getPosters());
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new MyAdapter(this, getPosters());
+//        recyclerView.setAdapter(mAdapter);
 
     }
 
