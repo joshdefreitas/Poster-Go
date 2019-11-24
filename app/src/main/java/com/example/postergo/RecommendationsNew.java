@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -58,25 +59,25 @@ public class RecommendationsNew extends AppCompatActivity {
 
 
         Poster p = new Poster();
-        p.setDescription("Poster description");
+        p.setDescription("Example: Poster description");
         p.setFilename("0.jpg");
 
         posters.add(p);
 
         Poster q = new Poster();
-        q.setDescription("Poster description 2");
+        q.setDescription("Example: Poster description 2");
         q.setFilename("1.jpg");
 
         posters.add(q);
 
         Poster r = new Poster();
-        r.setDescription("Poster description 3");
+        r.setDescription("Example: description 3");
         r.setFilename("2.jpg");
 
         posters.add(r);
 
         Poster s = new Poster();
-        s.setDescription("Poster description 4");
+        s.setDescription("Example: Poster description 4");
         s.setFilename("3.jpg");
 
         posters.add(s);
@@ -137,5 +138,15 @@ public class RecommendationsNew extends AppCompatActivity {
     public void showRecommendations(ArrayList<Poster> posters){
         mAdapter = new MyAdapter(this, posters);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    /*
+     * Allows user to return to the main activity
+     * @param: View
+     */
+
+    public void returnMain(View view){
+        Intent r = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(r);
     }
 }
