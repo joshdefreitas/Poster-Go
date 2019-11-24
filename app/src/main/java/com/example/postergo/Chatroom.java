@@ -176,6 +176,7 @@ public class Chatroom extends AppCompatActivity {
             textViewResult.append(content);
 
         }
+        Toast.makeText(this, "Chat updated", Toast.LENGTH_SHORT).show();
     }
 
     public void showUpdates(){

@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         saveFCMToken();
 
+        if (getIntent().getStringExtra("action") != null)
+            if(getIntent().getStringExtra("action").equals("refresh")){
+                Intent chatFromMainIntent = new Intent(getApplicationContext(),Chatroom.class);
+                startActivity(chatFromMainIntent);
+            }
+
 
     }
 
