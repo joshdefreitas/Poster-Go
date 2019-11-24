@@ -113,7 +113,7 @@ public class Chatroom extends AppCompatActivity {
      */
     public void createMessage(View view){
         getUpdates();
-        final Message message = new Message(3,editText.getText().toString(),6,1,"Josh");
+        final Message message = new Message(3,editText.getText().toString(),6,1,GlobalVariablesHelper.user_name);
         messageView.setText(editText.getText().toString());
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
