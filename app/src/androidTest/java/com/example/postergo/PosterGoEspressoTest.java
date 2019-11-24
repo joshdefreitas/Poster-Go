@@ -26,6 +26,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.StringContains.containsString;
 
 
 /**
@@ -79,8 +80,8 @@ public class PosterGoEspressoTest {
                 .perform(click());
         onView(withId(R.id.mainMessageView))
                 .check(matches(withText(
-                    "Taro: Hello Jack!\n\nJack: Hey Taro!\n\nTaro: How's your holiday?\n\nTaro: Have you been anywhere?\n\nJack: Yes, in my dream.\n\nJosh: hi how are you\n\nJosh: hello\n\nJosh: hi\n\nJosh: hello2\n\n"
-                )));
+                    containsString("Taro: Hello Jack!\n\nJack: Hey Taro!\n\nTaro: How's your holiday?\n\nTaro: Have you been anywhere?\n\nJack: Yes, in my dream."
+                ))));
 
     }
 
@@ -103,24 +104,15 @@ public class PosterGoEspressoTest {
      */
 
     @Test
-    public void getRecommendationsNameTest(){
+    public void getRecommendationsDescriptionTest(){
         onView(withId(R.id.recommendations_button))
                 .perform(click());
-        onView(withId(R.id.showRecommButton))
+        onView(withId(R.id.button))
                 .perform(click());
-        onView(withId(R.id.recommendations))
-                .check(matches(withText("6\n")));
+        onView(withId(R.id.descriptionView))
+                .check(matches(withText(containsString(" Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied and disregarded by society, Fleck begins a slow descent into madness as he transforms into the criminal mastermind known as the Joker."))));
     }
 
-    @Test
-    public void getRecommendationsImageTest(){
-        onView(withId(R.id.recommendations_button))
-                .perform(click());
-        onView(withId(R.id.showRecommButton))
-                .perform(click());
-        onView(withId(R.id.recommendationView2))
-                .check(matches(withText("/home/CPEN321/poster/6.jpg\n")));
-    }
 
     /*
     non functional requirements test
