@@ -23,4 +23,5 @@
 
     <string name="poster_description">POSTER</string>
     <string name="suggestions">Tap the button for suggested movies!</string>
+    <string name="chatroom_name">Movie: Joker</string>
 </resources>

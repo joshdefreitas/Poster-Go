@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     */
     public void startChatroom(View view){
         Intent c = new Intent(getApplicationContext(),Chatroom.class);
-        c.putExtra("PosterName","POSTER NAME GOES HERE");
+        c.putExtra("PosterName","Chatroom");
         c.putExtra("PosterID",123456789);
         startActivity(c);
     }
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
                         String msg = token;
 
 
-                        Log.d(TAG, msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         // [END retrieve_current_token]
