@@ -79,7 +79,7 @@ public class PosterContentLoader {
         Button likeButton = rightPanel.findViewById(R.id.like_button);
 
         lWebView.getSettings().setDisplayZoomControls(true);
-        lWebView.loadUrl("https://m.imdb.com");
+        lWebView.loadUrl("m.imdb.com");
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +107,7 @@ public class PosterContentLoader {
 
                         @Override
                         public void onResponse(JSONObject response) {
+                            Log.d(TAG, "onResponse: " + response.toString());
                             listResponse = response;
                             postHistoryAndLike(0, GlobalVariablesHelper.user_name);
                             loadContentToView();
@@ -218,7 +219,8 @@ public class PosterContentLoader {
     private void loadContentToView() {
         try{
             rPanelTextView.setText(listResponse.getString("description"));
-            this.getImgContent(imgUrlHead + this.listResponse.getString("filename"));
+            lWebView.loadUrl(listResponse.getString("imdburl"));
+            this.getImgContent(imgUrlHead + this.listResponse.getString("panelfile"));
         } catch (JSONException e) {
             Log.d(TAG, "loadContentToView: JSONException");
             e.printStackTrace();
