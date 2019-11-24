@@ -42,7 +42,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.3.0'
     implementation 'com.google.firebase:firebase-messaging:20.0.1'
 
-
+    //dependencies for displaying recommendations
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
     // Provides ARCore Session and related resources.
@@ -65,3 +68,4 @@ dependencies {
 
 //plugins
 apply plugin: 'com.google.gms.google-services' //google services
+

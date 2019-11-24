@@ -3,6 +3,8 @@ package com.example.postergo;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,5 +22,6 @@ public interface JsonPlaceHolderApi {
         Call <List<Poster>> getRecommendations();
 
         @POST ("post/recommendations")
-        Call<List<RecommJSON>> getRecommendations(@Body User user);
+        Call<ArrayList<Poster>> getRecommendations(@Body User user);
 }
+

@@ -1,6 +1,12 @@
 package com.example.postergo;
 
 import android.os.SystemClock;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.function.LongToDoubleFunction;
+
+import org.junit.Assert;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,6 +21,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -72,7 +79,7 @@ public class PosterGoEspressoTest {
                 .perform(click());
         onView(withId(R.id.mainMessageView))
                 .check(matches(withText(
-                    "Taro: Hello Jack!\n\nJack: Hey Taro!\n\nTaro: How's your holiday?\n\nTaro: Have you been anywhere?\n\nJack: Yes, in my dream.\n\nJosh: hi how are you\n\nJosh: hello\n\nJosh: hi\n\n"
+                    "Taro: Hello Jack!\n\nJack: Hey Taro!\n\nTaro: How's your holiday?\n\nTaro: Have you been anywhere?\n\nJack: Yes, in my dream.\n\nJosh: hi how are you\n\nJosh: hello\n\nJosh: hi\n\nJosh: hello2\n\n"
                 )));
 
     }
@@ -114,4 +121,27 @@ public class PosterGoEspressoTest {
         onView(withId(R.id.recommendationView2))
                 .check(matches(withText("/home/CPEN321/poster/6.jpg\n")));
     }
+
+    /*
+    non functional requirements test
+     */
+
+    @Test
+    public void chatTimeTest(){
+        double t1 = LocalTime.now().getNano();
+
+        onView(withId(R.id.chat_button))
+                .perform(click());
+        onView(withId(R.id.enter_message))
+                .perform(typeText("Test Message2"));
+        onView(withId(R.id.send))
+                .perform(click());
+        onView(withId(R.id.messasge))
+                .check(matches(withText("Test Message2")));
+
+        double t2 = LocalTime.now().getNano();
+
+        assert(t2-t1<500);
+    }
+
 }

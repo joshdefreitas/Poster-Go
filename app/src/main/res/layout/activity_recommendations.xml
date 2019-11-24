@@ -47,7 +47,7 @@
         android:id="@+id/recommendationView2"
         android:layout_width="218dp"
         android:layout_height="103dp"
-        android:text="Poster Name"
+        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/showRecommButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

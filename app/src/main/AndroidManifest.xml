@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".RecommendationsNew"></activity>
         <activity android:name=".ARCore" />
         <activity android:name=".Recommendations" />
         <activity android:name=".Chatroom" />
@@ -35,7 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".MessageHandling"
+
+        <service
+            android:name=".MessageHandling"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

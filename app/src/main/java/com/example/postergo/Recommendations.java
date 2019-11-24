@@ -72,46 +72,46 @@ public class Recommendations extends AppCompatActivity {
      * Makes a recommendation request and displays results
      * @param: View
      */
-    public void getRecomm(View view) {
-            textView.setText("get recomm");
-        final User user = new User(user_name);
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        jsonPlaceHolderApi =retrofit.create(JsonPlaceHolderApi.class);
-        Call<List<RecommJSON>> call = jsonPlaceHolderApi.getRecommendations(user);
-
-        call.enqueue(new Callback<List<RecommJSON>>() {
-            @Override
-            public void onResponse(Call<List<RecommJSON>> call, Response<List<RecommJSON>> response) {
-                if(!response.isSuccessful()){
-                    textView.setText("Code: "+ response.code());
-                    return;
-                }
-
-                recommJSONList = response.body();
-
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Recommendations received",
-                        Toast.LENGTH_SHORT);
-
-                toast.show();
-
-                showRecommendations();
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<RecommJSON>> call, Throwable t) {
-                textView.setText("no response");
-                //textView.setText(t.getMessage());
-            }
-        });
-
-
-
-    }
+//    public void getRecomm(View view) {
+//            textView.setText("get recomm");
+//        final User user = new User(user_name);
+//
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        jsonPlaceHolderApi =retrofit.create(JsonPlaceHolderApi.class);
+//        Call<List<RecommJSON>> call = jsonPlaceHolderApi.getRecommendations(user);
+//
+//        call.enqueue(new Callback<List<RecommJSON>>() {
+//            @Override
+//            public void onResponse(Call<List<RecommJSON>> call, Response<List<RecommJSON>> response) {
+//                if(!response.isSuccessful()){
+//                    textView.setText("Code: "+ response.code());
+//                    return;
+//                }
+//
+//                recommJSONList = response.body();
+//
+//                Toast toast = Toast.makeText(getApplicationContext(),
+//                        "Recommendations received",
+//                        Toast.LENGTH_SHORT);
+//
+//                toast.show();
+//
+//                showRecommendations();
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<RecommJSON>> call, Throwable t) {
+//                textView.setText("no response");
+//                //textView.setText(t.getMessage());
+//            }
+//        });
+//
+//
+//
+//    }
 }

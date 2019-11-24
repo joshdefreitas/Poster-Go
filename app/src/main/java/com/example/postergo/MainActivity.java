@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(r);
     }
 
+    public void startRecommNew(View view){
+        Intent rn = new Intent(getApplicationContext(),RecommendationsNew.class);
+        startActivity(rn);
+    }
+
     /*
      * Allows user to start the ARCOre activity from the home screen UI
      * @param: View

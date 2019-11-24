@@ -20,4 +20,7 @@
     <string name="get_updates">Update</string>
     <string name="show_recomm">Show Recommendations</string>
 
+
+    <string name="poster_description">POSTER</string>
+    <string name="suggestions">Tap the button for suggested movies!</string>
 </resources>
