@@ -26,7 +26,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".RecommendationsNew"></activity>
         <activity android:name=".ARCore" />
-        <activity android:name=".Recommendations" />
         <activity android:name=".Chatroom" />
         <activity android:name=".MainActivity">
             <intent-filter>

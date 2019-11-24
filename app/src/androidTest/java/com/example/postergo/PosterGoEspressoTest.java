@@ -100,7 +100,7 @@ public class PosterGoEspressoTest {
     }
 
     /**
-     * Test suite for Recommendations activity
+     * Test suite for RecommendationsNew activity
      */
 
     @Test

@@ -10,9 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,12 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecommendationsNew extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private String baseURL = "http://13.90.58.142:8081/";
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
     private TextView textView ;
-    private String user_name = "Brant3";
     private ArrayList<Poster> postersRecomm;
 
 
@@ -45,7 +39,7 @@ public class RecommendationsNew extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
@@ -93,13 +87,15 @@ public class RecommendationsNew extends AppCompatActivity {
      */
     public void getRecomm(View view) {
 
+        String user_name = "Brant3";
         final User user = new User(user_name);
 
+        String baseURL = "http://13.90.58.142:8081/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        jsonPlaceHolderApi =retrofit.create(JsonPlaceHolderApi.class);
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<ArrayList<Poster>> call = jsonPlaceHolderApi.getRecommendations(user);
 
         call.enqueue(new Callback<ArrayList<Poster>>() {
@@ -136,7 +132,7 @@ public class RecommendationsNew extends AppCompatActivity {
     }
 
     public void showRecommendations(ArrayList<Poster> posters){
-        mAdapter = new MyAdapter(this, posters);
+        RecyclerView.Adapter mAdapter = new MyAdapter(this, posters);
         recyclerView.setAdapter(mAdapter);
     }
 

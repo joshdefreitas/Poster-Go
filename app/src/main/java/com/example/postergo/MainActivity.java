@@ -38,12 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         saveFCMToken();
 
-        if (getIntent().getStringExtra("action") != null)
-            if(getIntent().getStringExtra("action").equals("refresh")){
-                Intent chatFromMainIntent = new Intent(getApplicationContext(),Chatroom.class);
-                startActivity(chatFromMainIntent);
-            }
-
+        if (getIntent().getStringExtra("action") != null && getIntent().getStringExtra("action").equals("refresh")) {
+            Intent chatFromMainIntent = new Intent(getApplicationContext(), Chatroom.class);
+            startActivity(chatFromMainIntent);
+        }
 
     }
 
@@ -62,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
      * Allows user to start the Recommendations activity from the home screen UI
      * @param: View
      */
-    public void startRecommendations(View view){
-        Intent r = new Intent(getApplicationContext(),Recommendations.class);
-        startActivity(r);
-    }
 
     public void startRecommNew(View view){
         Intent rn = new Intent(getApplicationContext(),RecommendationsNew.class);
@@ -100,13 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         token = task.getResult().getToken();
-                        // Log and toast
-                        //String msg = getString(R.string.msg_token_fmt, token);
-                        String msg = token;
 
-
-//                        Log.d(TAG, msg);
-//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         // [END retrieve_current_token]
