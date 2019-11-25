@@ -48,6 +48,7 @@ var scores;
 var maxscore;
 function findMax(result) {
 	scores = {"action" : 0, "romantic" : 0};
+	if(!Array.isArray(result)){return;}
 	var i;
 	for(i = 0; i < result.length; i++){
 		if(result[i].like === 1){
@@ -62,6 +63,7 @@ function findMax(result) {
 function findMaxScore() {
 	maxscore = 0;
 	var i;
+	if(!Array.isArray(scores)){return;}
 	for(i = 0; i < scores.length; i++){
 		if(scores[i]>scores[maxscore]){
 			maxscore = i;
@@ -82,7 +84,7 @@ app.get("/get/recommandations", function (req, res) {
 		try{
 			findMax(result);
 		}catch(error){
-			console.error(error);
+			res.send(err);
 		}
 	});
 	db.collection("poster").find({"movietype":maxscore}).toArray((err,result) => {
