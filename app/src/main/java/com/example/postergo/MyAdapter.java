@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-//    private Context c;
     private ArrayList<Poster> mposters;
 
 
@@ -36,8 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(Context con, ArrayList<Poster> myPosters) {
-        //this.c = con;
+    public MyAdapter(ArrayList<Poster> myPosters) {
+
         this.mposters = myPosters;
 
     }

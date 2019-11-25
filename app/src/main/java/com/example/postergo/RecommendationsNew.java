@@ -43,7 +43,7 @@ public class RecommendationsNew extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-//        mAdapter = new MyAdapter(this, getPosters());
+//        mAdapter = new MyAdapter(getPosters());
 //        recyclerView.setAdapter(mAdapter);
 
     }
@@ -134,7 +134,7 @@ public class RecommendationsNew extends AppCompatActivity {
     }
 
     public void showRecommendations(ArrayList<Poster> posters){
-        RecyclerView.Adapter mAdapter = new MyAdapter(this, posters);
+        RecyclerView.Adapter mAdapter = new MyAdapter(posters);
         recyclerView.setAdapter(mAdapter);
     }
 
