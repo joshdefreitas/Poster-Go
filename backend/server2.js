@@ -48,13 +48,13 @@ var scores;
 var maxscore;
 function findMax(result) {
 	scores = {"action" : 0, "romantic" : 0};
-	if(!Array.isArray(result)){return;}
+	//if(!Array.isArray(result)){return;}
 	var i;
 	for(i = 0; i < result.length; i++){
-		if(result[i].like === 1){
-			scores[result[i].movietype] += 2;
+		if(result[parseInt(i)].like === 1){
+			scores[result[parseInt(i)].movietype] += 2;
 		}else{
-			scores[result[i].movietype]++;
+			scores[result[parseInt(i)].movietype]++;
 		}
 	}
 
@@ -63,9 +63,9 @@ function findMax(result) {
 function findMaxScore() {
 	maxscore = 0;
 	var i;
-	if(!Array.isArray(scores)){return;}
+	//if(!Array.isArray(scores)){return;}
 	for(i = 0; i < scores.length; i++){
-		if(scores[i]>scores[maxscore]){
+		if(scores[parseInt(i)]>scores[maxscore]){
 			maxscore = i;
 		}
 	}
