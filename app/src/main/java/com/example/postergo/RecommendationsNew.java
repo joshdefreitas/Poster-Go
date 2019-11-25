@@ -23,7 +23,7 @@ public class RecommendationsNew extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView textView ;
-    private ArrayList<Poster> postersRecomm;
+
 
 
     @Override
@@ -47,39 +47,41 @@ public class RecommendationsNew extends AppCompatActivity {
 //        recyclerView.setAdapter(mAdapter);
 
     }
-
-    private ArrayList<Poster> getPosters(){
-        ArrayList<Poster> posters = new ArrayList<>();
-
-
-        Poster p = new Poster();
-        p.setDescription("Example: Poster description");
-        p.setFilename("0.jpg");
-
-        posters.add(p);
-
-        Poster q = new Poster();
-        q.setDescription("Example: Poster description 2");
-        q.setFilename("1.jpg");
-
-        posters.add(q);
-
-        Poster r = new Poster();
-        r.setDescription("Example: description 3");
-        r.setFilename("2.jpg");
-
-        posters.add(r);
-
-        Poster s = new Poster();
-        s.setDescription("Example: Poster description 4");
-        s.setFilename("3.jpg");
-
-        posters.add(s);
-
-
-
-    return posters;
-    }
+    /*
+    * Test method to test posters are displayed
+    * */
+//    private ArrayList<Poster> getPosters(){
+//        ArrayList<Poster> posters = new ArrayList<>();
+//
+//
+//        Poster p = new Poster();
+//        p.setDescription("Example: Poster description");
+//        p.setFilename("0.jpg");
+//
+//        posters.add(p);
+//
+//        Poster q = new Poster();
+//        q.setDescription("Example: Poster description 2");
+//        q.setFilename("1.jpg");
+//
+//        posters.add(q);
+//
+//        Poster r = new Poster();
+//        r.setDescription("Example: description 3");
+//        r.setFilename("2.jpg");
+//
+//        posters.add(r);
+//
+//        Poster s = new Poster();
+//        s.setDescription("Example: Poster description 4");
+//        s.setFilename("3.jpg");
+//
+//        posters.add(s);
+//
+//
+//
+//    return posters;
+//    }
 
     /*
      * Makes a recommendation request and displays results
@@ -106,7 +108,7 @@ public class RecommendationsNew extends AppCompatActivity {
                     return;
                 }
 
-                postersRecomm = response.body();
+                ArrayList<Poster> postersRecomm = response.body();
 
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Recommendations received",

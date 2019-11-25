@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private Context c;
+//    private Context c;
     private ArrayList<Poster> mposters;
 
 
@@ -26,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private ImageView mImageView;
-        private TextView mDes, mTitle;
+        private TextView mDes;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(Context con, ArrayList<Poster> myPosters) {
-        this.c = con;
+        //this.c = con;
         this.mposters = myPosters;
 
     }

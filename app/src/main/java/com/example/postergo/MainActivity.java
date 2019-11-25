@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = "MainActivity";
-    private String token;
+
 
 
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // Get new Instance ID token
-                        token = task.getResult().getToken();
+                        String token = task.getResult().getToken();
 
                     }
                 });
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
      * Sends generated token to be saved on the server
      * @param: token to be saved
      */
-    public void sendToServer(String token){
-        //successMsg.setText("Token: " +token);
-        //TODO: Implement api call to server
-
-
-    }
+//    public void sendToServer(String token){
+//        //successMsg.setText("Token: " +token);
+//        //TODO: Implement api call to server
+//
+//
+//    }
 
 
 
