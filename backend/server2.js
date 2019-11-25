@@ -65,7 +65,7 @@ function findMaxScore() {
 	var i;
 	//if(!Array.isArray(scores)){return;}
 	for(i = 0; i < scores.length; i++){
-		if(scores[parseInt(i,10)]>scores[maxscore]){
+		if(scores[parseInt(i,10)]>scores[parseInt(maxscore,10)]){
 			maxscore = i;
 		}
 	}
