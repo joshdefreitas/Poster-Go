@@ -51,10 +51,10 @@ function findMax(result) {
 	//if(!Array.isArray(result)){return;}
 	var i;
 	for(i = 0; i < result.length; i++){
-		if(result[parseInt(i)].like === 1){
-			scores[result[parseInt(i)].movietype] += 2;
+		if(result[parseInt(i,10)].like === 1){
+			scores[result[parseInt(i,10)].movietype] += 2;
 		}else{
-			scores[result[parseInt(i)].movietype]++;
+			scores[result[parseInt(i,10)].movietype]++;
 		}
 	}
 
@@ -65,7 +65,7 @@ function findMaxScore() {
 	var i;
 	//if(!Array.isArray(scores)){return;}
 	for(i = 0; i < scores.length; i++){
-		if(scores[parseInt(i)]>scores[maxscore]){
+		if(scores[parseInt(i,10)]>scores[maxscore]){
 			maxscore = i;
 		}
 	}
